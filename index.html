@@ -1,170 +1,213 @@
- 
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>IT ROBOT WORLD @ RYTC</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
   background: #080d20;
-  color: white;
+  color: #eef6ff;
+  font-family: Arial, sans-serif;
 }
 
 header {
   text-align: center;
   padding: 25px 10px;
   background: linear-gradient(120deg, #101c40, #28134d);
-  border-bottom: 1px solid #22d3ee;
+}
+
+header strong {
+  letter-spacing: 3px;
+  color: #ffffff;
+  font-size: clamp(18px, 4vw, 30px);
 }
 
 h1 {
-  margin: 10px 0;
   color: #67e8f9;
-  text-shadow: 0 0 20px #0891b2;
+  margin: 12px 0;
+  font-size: clamp(26px, 5vw, 48px);
 }
 
-header p { color: #bac8e8; }
+p {
+  margin: 8px;
+}
 
-.container {
-  max-width: 1200px;
+main {
+  max-width: 1100px;
   margin: auto;
-  padding: 15px;
+  padding: 16px;
 }
 
-.layout {
-  display: grid;
-  grid-template-columns: 1fr 290px;
-  gap: 15px;
+.stats {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.panel {
-  background: #121c35;
-  border: 1px solid #304569;
+.stat, form {
+  background: #15213d;
+  border: 1px solid #34476a;
   border-radius: 16px;
-  padding: 18px;
+  padding: 16px;
 }
 
-.city {
+.stat {
+  text-align: center;
+  min-width: 140px;
+}
+
+.stat b {
+  display: block;
+  font-size: 32px;
+  color: #67e8f9;
+}
+
+#city {
   position: relative;
   overflow: hidden;
-  height: 510px;
-  border-radius: 16px;
-  border: 1px solid #38bdf8;
-  background: #0c1731;
-}
-
-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.counter {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: #091426dd;
-  border: 1px solid #22d3ee;
-  padding: 10px;
+  height: 440px;
+  margin: 16px 0;
+  border: 1px solid #41628c;
   border-radius: 20px;
-  font-size: 13px;
-  color: #67e8f9;
+  background: linear-gradient(
+    #101338,
+    #31245b 48%,
+    #142d43 49%,
+    #081526
+  );
+  isolation: isolate;
 }
 
-h2 { color: #67e8f9; font-size: 19px; }
+.building {
+  position: absolute;
+  bottom: 48%;
+  background:
+    repeating-linear-gradient(
+      0deg, transparent 0 13px,
+      #172c50 13px 18px
+    ),
+    repeating-linear-gradient(
+      90deg, #203654 0 8px,
+      #55c9df 8px 12px,
+      #203654 12px 20px
+    );
+  border: 1px solid #53749d;
+  box-shadow: 0 0 15px #36b9ed44;
+}
+
+.road {
+  position: absolute;
+  inset: 53% 0 0;
+  background:
+    repeating-linear-gradient(
+      0deg, transparent 0 48px,
+      #6ce6ff22 49px 50px
+    ),
+    repeating-linear-gradient(
+      90deg, transparent 0 65px,
+      #6ce6ff22 66px 67px
+    );
+  transform: perspective(250px) rotateX(22deg);
+  transform-origin: bottom;
+}
+
+.robot {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: walk 9s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 6px var(--c));
+  max-width: 110px;
+}
+
+.robot svg {
+  width: 48px;
+  height: 60px;
+}
+
+.robot span {
+  font-size: 12px;
+  background: #080d20dd;
+  padding: 3px 6px;
+  border-radius: 6px;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+@keyframes walk {
+  to {
+    transform: translate(var(--dx), var(--dy));
+  }
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+}
 
 label {
-  display: block;
-  margin: 15px 0 7px;
-  color: #cbd5e1;
-  font-size: 14px;
+  display: grid;
+  gap: 6px;
+  flex: 1;
+  min-width: 130px;
 }
 
-input, select {
-  width: 100%;
+input, select, button {
+  font: inherit;
   padding: 12px;
-  background: #080f25;
-  border: 1px solid #41567b;
-  border-radius: 8px;
+  border-radius: 9px;
+  border: 1px solid #52698d;
+  background: #0d1830;
   color: white;
-  font-size: 16px;
+}
+
+input[type=color] {
+  width: 100%;
+  height: 45px;
+  padding: 4px;
 }
 
 button {
-  cursor: pointer;
-  border: 1px solid #40577b;
-  border-radius: 10px;
-  padding: 12px;
-  background: #203050;
-  color: white;
-}
-
-button:hover { border-color: #67e8f9; }
-
-.choices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.type { font-size: 25px; flex: 1; }
-
-.active {
-  outline: 2px solid #67e8f9;
-}
-
-.color {
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  border-radius: 50%;
-}
-
-.preview {
-  text-align: center;
-  font-size: 65px;
-  padding: 15px;
-}
-
-.launch {
-  width: 100%;
-  margin-top: 20px;
-  background: linear-gradient(90deg, #0284c7, #7c3aed);
+  background: #67e8f9;
+  color: #071526;
   font-weight: bold;
-  font-size: 15px;
+  cursor: pointer;
 }
 
-#message {
-  font-size: 13px;
-  color: #86efac;
+button:disabled {
+  opacity: .5;
+  cursor: default;
+}
+
+#status {
+  min-height: 24px;
   text-align: center;
+  color: #b9e7ff;
 }
-
-#info {
-  margin-top: 12px;
-  min-height: 85px;
-}
-
-#heart { background: #9d174d; }
 
 footer {
   text-align: center;
-  padding: 25px;
-  color: #94a3b8;
-  line-height: 1.8;
-  font-size: 13px;
+  padding: 20px;
+  color: #a8b9d6;
 }
 
-@media(max-width: 760px) {
-  .layout { grid-template-columns: 1fr; }
-  .city { height: 390px; }
-  h1 { font-size: 25px; }
+@media (prefers-reduced-motion: reduce) {
+  .robot {
+    animation: none;
+  }
 }
 </style>
 </head>
@@ -172,388 +215,482 @@ footer {
 <body>
 
 <header>
-  <small>RAYONG TECHNICAL COLLEGE</small>
+  <strong>INFORMATION TECHNOLOGY</strong>
+  <p>แผนกวิชาเทคโนโลยีสารสนเทศ</p>
   <h1>🤖 IT ROBOT WORLD</h1>
-  <p>สร้างตัวตนของคุณในเมืองแห่งอนาคต</p>
+  <p>RAYONG TECHNICAL COLLEGE • เมืองหุ่นยนต์แห่งอนาคต</p>
 </header>
 
-<div class="container">
-<div class="layout">
+<main>
 
-<section>
-  <div class="city">
-    <canvas id="world"></canvas>
-    <div class="counter">
-      ● หุ่นยนต์ <span id="count">0</span> ตัว
+  <div class="stats">
+
+    <div class="stat">
+      <b id="count">—</b>
+      หุ่นยนต์วันนี้
     </div>
+
+    <div class="stat">
+      <b id="date">—</b>
+      วันที่ (เวลาไทย)
+    </div>
+
   </div>
 
-  <div class="panel" id="info">
-    <div id="detail">แตะหุ่นยนต์ในเมืองเพื่อทำความรู้จัก</div>
-    <button id="heart" hidden>❤️ ส่งหัวใจ</button>
+  <div id="city" aria-label="เมืองหุ่นยนต์">
+    <div class="road"></div>
+    <div id="robots"></div>
   </div>
-</section>
 
-<section class="panel">
-  <h2>สร้างหุ่นยนต์ของคุณ</h2>
+  <form id="form">
 
-  <div class="preview" id="preview">🤖</div>
+    <label>
+      ชื่อเล่นหุ่นยนต์
+      <input id="name"
+             maxlength="20"
+             required
+             placeholder="ไม่ใช้ชื่อจริง">
+    </label>
 
-  <label>เลือกรูปแบบหุ่นยนต์</label>
-  <div class="choices" id="types"></div>
+    <label>
+      รูปแบบ
+      <select id="type">
+        <option value="Explorer">Explorer</option>
+        <option value="Coder">Coder</option>
+        <option value="Guardian">Guardian</option>
+      </select>
+    </label>
 
-  <label>เลือกสีพลังงาน</label>
-  <div class="choices" id="colors"></div>
+    <label>
+      สีหุ่นยนต์
+      <input id="color" type="color" value="#67e8f9">
+    </label>
 
-  <label for="robotName">ชื่อหุ่นยนต์</label>
-  <input id="robotName" maxlength="18"
-         placeholder="ตั้งชื่อหุ่นยนต์">
+    <button id="join" disabled>
+      ปล่อยหุ่นยนต์เข้าสู่เมือง
+    </button>
 
-  <label for="interest">สิ่งที่คุณสนใจ</label>
-  <select id="interest">
-    <option>AI และปัญญาประดิษฐ์</option>
-    <option>การเขียนโปรแกรม</option>
-    <option>การสร้างเกม</option>
-    <option>กราฟิกและสื่อดิจิทัล</option>
-    <option>การพัฒนาเว็บไซต์</option>
-    <option>หุ่นยนต์และ IoT</option>
-    <option>ระบบเครือข่าย</option>
-    <option>อยากลองเรียนรู้</option>
-  </select>
+  </form>
 
-  <button class="launch" id="launch">
-    🚀 ปล่อยหุ่นยนต์เข้าสู่เมือง
-  </button>
+  <p id="status" role="status">กำลังเชื่อมต่อ...</p>
 
-  <p id="message"></p>
-</section>
+  <p>
+    ใช้ชื่อเล่นเท่านั้น ชื่อและหุ่นยนต์จะแสดงให้ผู้เล่นคนอื่นเห็น
+    และข้อมูลจะถูกเก็บเพื่อสถิติกิจกรรม
+  </p>
 
-</div>
-</div>
+</main>
 
 <footer>
-  <strong>แผนกวิชาเทคโนโลยีสารสนเทศ</strong><br>
-  วิทยาลัยเทคนิคระยอง<br>
-  ปวช. | ปวส. | ปริญญาตรี ทลบ.<br>
-  IT ROBOT WORLD V1.0 — โหมดจำลอง
+  IT ROBOT WORLD V2.0 •
+  แผนกวิชาเทคโนโลยีสารสนเทศ วิทยาลัยเทคนิคระยอง
 </footer>
 
-<script>
-const canvas = document.getElementById("world");
-const ctx = canvas.getContext("2d");
+<script type="module">
+
+import { initializeApp }
+from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js';
+
+import {
+  getAuth,
+  signInAnonymously,
+  onAuthStateChanged
+}
+from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js';
+
+import {
+  getDatabase,
+  ref,
+  onValue,
+  set,
+  serverTimestamp
+}
+from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js';
+
+
+// ==========================
+// ตั้งค่า Firebase
+// ==========================
+
+const firebaseConfig = {
+  apiKey: "PASTE_YOUR_FIREBASE_WEB_API_KEY",
+  authDomain: "it-robot-world-rytc.firebaseapp.com",
+  databaseURL: "https://it-robot-world-rytc-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "it-robot-world-rytc",
+  storageBucket: "it-robot-world-rytc.firebasestorage.app",
+  messagingSenderId: "764898190549",
+  appId: "1:764898190549:web:b3b4cff76e46929a4e2e5c"
+};
+
 const $ = id => document.getElementById(id);
 
-const types = ["🤖", "👾", "🛸", "🦾"];
-const colors = [
-  "#22d3ee", "#a78bfa", "#f472b6",
-  "#4ade80", "#facc15", "#fb7185"
-];
 
-let selectedType = types[0];
-let selectedColor = colors[0];
-let selectedRobot = null;
+// ==========================
+// สร้างฉากเมือง
+// ==========================
 
-const robots = [
-  ["AI Bot", "🤖", "#22d3ee", "AI"],
-  ["Pixel", "👾", "#a78bfa", "สร้างเกม"],
-  ["Nova", "🛸", "#f472b6", "กราฟิก"],
-  ["Cyber", "🤖", "#4ade80", "เครือข่าย"],
-  ["Code", "🦾", "#facc15", "เขียนโปรแกรม"]
-].map(r => createRobot(...r));
+for (let i = 0; i < 16; i++) {
 
-function createRobot(name, type, color, interest) {
-  return {
-    name, type, color, interest,
-    x: 0.1 + Math.random() * 0.8,
-    y: 0.52 + Math.random() * 0.28,
-    angle: Math.random() * Math.PI * 2,
-    speed: 0.00005 + Math.random() * 0.00005,
-    hearts: 0
-  };
+  const b = document.createElement('div');
+
+  b.className = 'building';
+  b.style.left = (i * 6.5) + '%';
+  b.style.width = '5.5%';
+  b.style.height = (60 + (i * 37) % 145) + 'px';
+
+  $('city').prepend(b);
+
 }
 
-function updateChoices() {
-  $("types").replaceChildren();
-  $("colors").replaceChildren();
 
-  types.forEach(type => {
-    const button = document.createElement("button");
-    button.textContent = type;
-    button.className = "type" +
-      (type === selectedType ? " active" : "");
+// ==========================
+// ตัวแปรระบบ
+// ==========================
 
-    button.onclick = () => {
-      selectedType = type;
-      updateChoices();
-    };
+let uid;
+let day;
+let offset = 0;
+let unsub;
+let ready = false;
+let connected = false;
+let exists = false;
+let busy = false;
 
-    $("types").appendChild(button);
-  });
+const status = t => $('status').textContent = t;
 
-  colors.forEach(color => {
-    const button = document.createElement("button");
-    button.className = "color" +
-      (color === selectedColor ? " active" : "");
-
-    button.style.background = color;
-    button.setAttribute("aria-label", color);
-
-    button.onclick = () => {
-      selectedColor = color;
-      updateChoices();
-    };
-
-    $("colors").appendChild(button);
-  });
-
-  $("preview").textContent = selectedType;
-  $("preview").style.filter =
-    `drop-shadow(0 0 15px ${selectedColor})`;
-}
-
-updateChoices();
-
-function building(x, y, w, h, color) {
-  ctx.fillStyle = "#182746";
-  ctx.fillRect(x, y, w, h);
-
-  ctx.strokeStyle = color;
-  ctx.strokeRect(x, y, w, h);
-
-  ctx.fillStyle = "#30476b";
-  ctx.beginPath();
-  ctx.moveTo(x, y);
-  ctx.lineTo(x + 15, y - 15);
-  ctx.lineTo(x + w + 15, y - 15);
-  ctx.lineTo(x + w, y);
-  ctx.closePath();
-  ctx.fill();
-
-  for (let row = 12; row < h - 8; row += 18) {
-    for (let col = 8; col < w - 8; col += 16) {
-      ctx.fillStyle = color;
-      ctx.globalAlpha = 0.65;
-      ctx.fillRect(x + col, y + row, 7, 8);
-    }
-  }
-
-  ctx.globalAlpha = 1;
-}
-
-let lastTime = 0;
-
-function draw(time) {
-  const w = canvas.clientWidth;
-  const h = canvas.clientHeight;
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-  if (canvas.width !== Math.round(w * dpr) ||
-      canvas.height !== Math.round(h * dpr)) {
-    canvas.width = Math.round(w * dpr);
-    canvas.height = Math.round(h * dpr);
-  }
-
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  const dt = Math.min(time - lastTime, 40);
-  lastTime = time;
-
-  // ท้องฟ้าเมืองแห่งอนาคต
-  const sky = ctx.createLinearGradient(0, 0, 0, h);
-  sky.addColorStop(0, "#080b24");
-  sky.addColorStop(0.5, "#302052");
-  sky.addColorStop(1, "#0a263d");
-
-  ctx.fillStyle = sky;
-  ctx.fillRect(0, 0, w, h);
-
-  // ดวงดาว
-  for (let i = 0; i < 60; i++) {
-    ctx.fillStyle = "#b7e5ff";
-    ctx.globalAlpha = 0.4 + 0.3 * Math.sin(time / 900 + i);
-    ctx.fillRect((i * 73) % w, (i * 37) % (h * 0.3), 2, 2);
-  }
-
-  ctx.globalAlpha = 1;
-
-  // อาคารเมือง
-  for (let i = 0; i < 10; i++) {
-    const bh = 45 + (i * 37) % 90;
-    building(
-      i * w / 10,
-      h * 0.4 - bh,
-      w / 12,
-      bh,
-      i % 2 ? "#22d3ee" : "#a78bfa"
-    );
-  }
-
-  // พื้นเมือง
-  ctx.fillStyle = "#10283e";
-  ctx.fillRect(0, h * 0.4, w, h * 0.6);
-
-  // ถนนนีออน
-  ctx.strokeStyle = "#23576d";
-  ctx.lineWidth = 1;
-
-  for (let i = -10; i <= 10; i++) {
-    ctx.beginPath();
-    ctx.moveTo(w / 2 + i * 12, h * 0.4);
-    ctx.lineTo(w / 2 + i * w / 7, h);
-    ctx.stroke();
-  }
-
-  for (let i = 0; i < 10; i++) {
-    const y = h * 0.4 + h * 0.6 * (i / 9) ** 1.7;
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(w, y);
-    ctx.stroke();
-  }
-
-  // อาคารแผนก IT
-  const bw = Math.min(w * 0.4, 190);
-  const bx = (w - bw) / 2;
-  const by = h * 0.18;
-
-  ctx.shadowColor = "#22d3ee";
-  ctx.shadowBlur = 15;
-  building(bx, by, bw, h * 0.22, "#22d3ee");
-  ctx.shadowBlur = 0;
-
-  ctx.fillStyle = "#09172c";
-  ctx.fillRect(bx + 5, by + 10, bw - 10, 42);
-
-  ctx.textAlign = "center";
-  ctx.fillStyle = "#67e8f9";
-  ctx.font = "bold 18px Arial";
-  ctx.fillText("IT • RYTC", w / 2, by + 28);
-
-  ctx.font = "10px Arial";
-  ctx.fillText("TECHNOLOGY CENTER", w / 2, by + 43);
-
-  // การเคลื่อนไหวของหุ่นยนต์
-  robots.forEach(r => {
-    r.angle += Math.sin(time / 1800 + r.speed * 10000) * 0.006;
-
-    r.x += Math.cos(r.angle) * r.speed * dt;
-    r.y += Math.sin(r.angle) * r.speed * dt;
-
-    if (r.x < 0.08 || r.x > 0.92) {
-      r.angle = Math.PI - r.angle;
-      r.x = Math.max(0.08, Math.min(0.92, r.x));
-    }
-
-    if (r.y < 0.52 || r.y > 0.88) {
-      r.angle = -r.angle;
-      r.y = Math.max(0.52, Math.min(0.88, r.y));
-    }
-
-    r.px = r.x * w;
-    r.py = r.y * h;
-  });
-
-  // แสดงตัวละคร
-  [...robots].sort((a, b) => a.py - b.py).forEach(r => {
-    const x = r.px;
-    const y = r.py;
-    const bob = Math.sin(time / 180 + r.angle) * 3;
-
-    ctx.shadowColor = r.color;
-    ctx.shadowBlur = 14;
-    ctx.fillStyle = r.color + "55";
-
-    ctx.beginPath();
-    ctx.ellipse(x, y + 10, 19, 6, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.font = "34px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText(r.type, x, y + bob);
-
-    ctx.shadowBlur = 0;
-
-    ctx.font = "12px Arial";
-    const label = r.name + (r.hearts ? " ♥" + r.hearts : "");
-    const tw = ctx.measureText(label).width + 14;
-
-    ctx.fillStyle = "#071126dd";
-    ctx.fillRect(x - tw / 2, y - 49, tw, 19);
-
-    ctx.fillStyle = r.color;
-    ctx.fillText(label, x, y - 35);
-  });
-
-  requestAnimationFrame(draw);
-}
-
-$("count").textContent = robots.length;
-requestAnimationFrame(draw);
-
-// ปล่อยหุ่นยนต์เข้าสู่เมือง
-$("launch").onclick = () => {
-  const name = $("robotName").value.trim();
-
-  if (!name) {
-    $("message").textContent = "กรุณาตั้งชื่อหุ่นยนต์ก่อน";
-    return;
-  }
-
-  if (robots.length >= 40) {
-    $("message").textContent = "เมืองจำลองเต็มแล้ว";
-    return;
-  }
-
-  robots.push(createRobot(
-    name,
-    selectedType,
-    selectedColor,
-    $("interest").value
-  ));
-
-  $("count").textContent = robots.length;
-  $("message").textContent =
-    "ยินดีต้อนรับ " + name + " เข้าสู่เมือง!";
-  $("robotName").value = "";
+const update = () => {
+  $('join').disabled =
+    !ready || !connected || exists || busy;
 };
 
-// กดดูข้อมูลหุ่นยนต์
-canvas.addEventListener("click", event => {
-  const rect = canvas.getBoundingClientRect();
-  const x = event.clientX - rect.left;
-  const y = event.clientY - rect.top;
 
-  selectedRobot = [...robots]
-    .sort((a, b) => b.py - a.py)
-    .find(r =>
-      Math.abs(r.px - x) < 25 &&
-      y > r.py - 50 &&
-      y < r.py + 15
+// ==========================
+// แสดงหุ่นยนต์ในเมือง
+// ==========================
+
+function render(data) {
+
+  $('robots').replaceChildren();
+
+  const entries = Object.entries(data || {});
+
+  $('count').textContent = entries.length;
+
+  entries.forEach(([id, r], i) => {
+
+    const el = document.createElement('div');
+
+    el.className = 'robot';
+
+    el.style.left = (4 + (i * 37) % 80) + '%';
+    el.style.top = (53 + (i * 13) % 26) + '%';
+
+    el.style.setProperty(
+      '--dx',
+      ((i % 2 ? 1 : -1) * 15) + 'px'
     );
 
-  if (selectedRobot) {
-    $("detail").textContent =
-      selectedRobot.name + " | สนใจ: " +
-      selectedRobot.interest;
+    el.style.setProperty('--dy', '8px');
+    el.style.animationDelay = -(i % 9) + 's';
 
-    $("heart").hidden = false;
-    $("heart").textContent =
-      "❤️ ส่งหัวใจ (" + selectedRobot.hearts + ")";
-  } else {
-    $("detail").textContent =
-      "แตะหุ่นยนต์ในเมืองเพื่อทำความรู้จัก";
-    $("heart").hidden = true;
-  }
-});
+    const c = /^#[0-9a-f]{6}$/i.test(r.color)
+      ? r.color
+      : '#67e8f9';
 
-// ส่งหัวใจ
-$("heart").onclick = () => {
-  if (selectedRobot) {
-    selectedRobot.hearts++;
-    $("heart").textContent =
-      "❤️ ส่งหัวใจ (" + selectedRobot.hearts + ")";
+    el.style.setProperty('--c', c);
+
+    const ns = 'http://www.w3.org/2000/svg';
+
+    const s = document.createElementNS(ns, 'svg');
+
+    s.setAttribute('viewBox', '0 0 60 72');
+
+    const shape = (tag, attrs) => {
+
+      const n = document.createElementNS(ns, tag);
+
+      Object.entries(attrs).forEach(([k, v]) => {
+        n.setAttribute(k, v);
+      });
+
+      s.append(n);
+
+    };
+
+    // หัวหุ่นยนต์
+
+    shape('rect', {
+      x: 12,
+      y: 8,
+      width: 36,
+      height: 26,
+      rx: r.type === 'Guardian' ? 3 : 9,
+      fill: c
+    });
+
+    // ลำตัว
+
+    shape('rect', {
+      x: 16,
+      y: 38,
+      width: 28,
+      height: 22,
+      rx: 5,
+      fill: c
+    });
+
+    // แขนซ้าย
+
+    shape('rect', {
+      x: 5,
+      y: 39,
+      width: 8,
+      height: 19,
+      rx: 4,
+      fill: c
+    });
+
+    // แขนขวา
+
+    shape('rect', {
+      x: 47,
+      y: 39,
+      width: 8,
+      height: 19,
+      rx: 4,
+      fill: c
+    });
+
+    // ดวงตา
+
+    for (const x of [21, 39]) {
+
+      shape('circle', {
+        cx: x,
+        cy: 21,
+        r: 4,
+        fill: '#101b36'
+      });
+
+    }
+
+    // ขาหุ่นยนต์
+
+    for (const x of [18, 34]) {
+
+      shape('rect', {
+        x,
+        y: 61,
+        width: 9,
+        height: 10,
+        rx: 3,
+        fill: c
+      });
+
+    }
+
+    if (r.type === 'Coder') {
+
+      shape('rect', {
+        x: 22,
+        y: 43,
+        width: 16,
+        height: 9,
+        rx: 2,
+        fill: '#101b36'
+      });
+
+    }
+
+    el.append(s);
+
+    const name = document.createElement('span');
+
+    name.textContent = r.name;
+
+    el.append(name);
+
+    $('robots').append(el);
+
+  });
+
+  exists = Object.prototype.hasOwnProperty.call(
+    data || {},
+    uid
+  );
+
+  ready = true;
+
+  update();
+
+  status(
+    exists
+      ? 'หุ่นยนต์ของคุณอยู่ในเมืองแล้ววันนี้'
+      : connected
+        ? 'พร้อมสร้างหุ่นยนต์'
+        : 'กำลังรอการเชื่อมต่อ'
+  );
+
+}
+
+
+// ==========================
+// เชื่อมต่อ Firebase
+// ==========================
+
+try {
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+
+
+  // เปลี่ยนเมืองตามวัน เวลาไทย
+
+  function sync() {
+
+    if (!uid) return;
+
+    const t = Date.now() + offset;
+
+    const d = String(
+      Math.floor((t + 25200000) / 86400000)
+    );
+
+    $('date').textContent =
+      new Intl.DateTimeFormat('th-TH', {
+        timeZone: 'Asia/Bangkok',
+        day: 'numeric',
+        month: 'short'
+      }).format(t);
+
+    if (day === d) return;
+
+    day = d;
+    ready = false;
+    exists = false;
+
+    update();
+
+    $('count').textContent = '—';
+
+    $('robots').replaceChildren();
+
+    if (unsub) unsub();
+
+    unsub = onValue(
+      ref(db, 'robots/' + day),
+      snap => render(snap.val()),
+      e => {
+        ready = false;
+        update();
+        status('อ่านข้อมูลไม่ได้: ' + e.message);
+      }
+    );
+
   }
-};
+
+
+  // ตรวจสอบเวลาจากเซิร์ฟเวอร์
+
+  onValue(
+    ref(db, '.info/serverTimeOffset'),
+    s => {
+      offset = s.val() || 0;
+      sync();
+    }
+  );
+
+
+  // ตรวจสอบสถานะการเชื่อมต่อ
+
+  onValue(
+    ref(db, '.info/connected'),
+    s => {
+
+      connected = s.val() === true;
+
+      update();
+
+      if (!connected) {
+        status('กำลังรอการเชื่อมต่อ');
+      }
+
+    }
+  );
+
+
+  // เข้าสู่ระบบโดยไม่ต้องสมัครสมาชิก
+
+  onAuthStateChanged(auth, u => {
+
+    if (u) {
+      uid = u.uid;
+      sync();
+    }
+
+  });
+
+  if (!auth.currentUser) {
+    await signInAnonymously(auth);
+  }
+
+  setInterval(sync, 1000);
+
+
+  // ==========================
+  // บันทึกหุ่นยนต์ลงฐานข้อมูล
+  // ==========================
+
+  $('form').addEventListener('submit', async e => {
+
+    e.preventDefault();
+
+    if (!ready || !connected || exists || busy) {
+      return;
+    }
+
+    const name = $('name').value.trim();
+
+    if (!name) return;
+
+    busy = true;
+
+    update();
+
+    try {
+
+      await set(
+        ref(db, 'robots/' + day + '/' + uid),
+        {
+          name,
+          type: $('type').value,
+          color: $('color').value,
+          createdAt: serverTimestamp()
+        }
+      );
+
+      status('สร้างหุ่นยนต์สำเร็จ');
+
+    } catch (e) {
+
+      status('บันทึกไม่สำเร็จ: ' + e.message);
+
+    } finally {
+
+      busy = false;
+      update();
+
+    }
+
+  });
+
+} catch (e) {
+
+  status('เชื่อมต่อไม่ได้: ' + e.message);
+
+}
+
 </script>
 
 </body>
