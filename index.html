@@ -2,74 +2,105 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>IT ROBOT WORLD @ RYTC</title>
 
 <style>
+
+/* =====================================
+   1. ออกแบบหน้าตาเว็บไซต์
+===================================== */
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  background: #090f23;
-  color: #e7f5ff;
+  background: #edf7f3;
+  color: #183b40;
   font: 16px Arial, sans-serif;
 }
 
 header {
+  padding: 32px 20px;
+  background: linear-gradient(120deg,#075b55,#147f91);
+  color: white;
   text-align: center;
-  padding: 28px;
-  background: linear-gradient(120deg, #102c40, #30204e);
 }
 
 h1 {
-  margin: 10px;
-  color: #67e8f9;
+  margin: 8px 0;
+  font-size: clamp(26px,5vw,48px);
+  letter-spacing: -1px;
+}
+
+header small {
+  color: #c6f4e5;
 }
 
 main {
-  max-width: 1100px;
+  max-width: 1280px;
   margin: auto;
-  padding: 16px;
+  padding: 18px;
 }
 
 section {
-  background: #16213b;
-  border: 1px solid #354b70;
-  border-radius: 16px;
-  padding: 18px;
-  margin: 14px 0;
+  background: white;
+  border: 1px solid #d2e8e1;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 12px 0;
+  box-shadow: 0 5px 20px #155b5510;
+}
+
+h2 {
+  margin: 0 0 14px;
+  font-size: 21px;
+}
+
+h3 {
+  font-size: 16px;
 }
 
 input, select, button {
   font: inherit;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #53678b;
-  background: #101a30;
-  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #b8d6d1;
+  background: #f7fcfa;
+  color: #183b40;
 }
 
 button {
-  background: #67e8f9;
-  color: #092033;
+  background: #087e70;
+  color: white;
   font-weight: bold;
   cursor: pointer;
 }
 
 button:disabled {
-  opacity: .45;
+  opacity: .5;
   cursor: default;
 }
 
 canvas {
   width: 100%;
   height: auto;
-  border: 1px solid #405d80;
-  border-radius: 16px;
+  display: block;
+  border-radius: 14px;
   touch-action: manipulation;
+}
+
+#city {
+  min-width: 650px;
+}
+
+.mapscroll {
+  overflow: auto;
+  border-radius: 14px;
 }
 
 .row {
@@ -81,81 +112,290 @@ canvas {
 
 .row > * {
   flex: 1;
-  min-width: 130px;
+  min-width: 120px;
+}
+
+#choices {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(175px,1fr));
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
 label {
-  display: inline-block;
-  margin: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid #d2e8e1;
+  border-radius: 12px;
+  background: #f7fcfa;
+}
+
+label:has(input:checked) {
+  background: #d9f7e9;
+  border-color: #159b78;
 }
 
 small {
-  color: #a5b4fc;
+  color: #52716e;
 }
 
 footer {
   text-align: center;
-  padding: 20px;
-}
-
-#profile button {
-  margin: 8px;
+  padding: 24px;
+  color: #52716e;
 }
 
 a {
-  color: #67e8f9;
+  color: #087e70;
 }
+
+/* จัดหน้าเว็บไซต์ */
+
+.layout {
+  display: grid;
+  grid-template-columns:
+    minmax(0,2.2fr) minmax(260px,1fr);
+  gap: 16px;
+}
+
+/* การ์ดสถิติ */
+
+.statsgrid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+}
+
+.metric {
+  background: #edf8f5;
+  padding: 14px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.metric b {
+  display: block;
+  font-size: clamp(24px,4vw,38px);
+  color: #087e70;
+}
+
+.metric span {
+  font-size: 13px;
+}
+
+.tag {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #c6f4e5;
+}
+
+/* ตัวอย่างหุ่นยนต์ */
+
+.preview {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  background: #eef8f4;
+  border-radius: 16px;
+  padding: 12px;
+}
+
+.preview canvas {
+  width: 100px;
+  height: 110px;
+}
+
+#create {
+  width: 100%;
+}
+
+#ranking p {
+  border-bottom: 1px solid #e1eeea;
+  padding-bottom: 10px;
+}
+
+#profile button {
+  background: #c83d70;
+}
+
+#interestStats p {
+  margin: 10px 0;
+}
+
+.bar {
+  height: 7px;
+  background: #e5efec;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: #23a88a;
+}
+
+#status {
+  overflow-wrap: anywhere;
+}
+
+.heartpop {
+  animation: pop .45s ease;
+}
+
+@keyframes pop {
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+/* รองรับโทรศัพท์มือถือ */
+
+@media(max-width:800px) {
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    padding: 10px;
+  }
+
+  section {
+    padding: 14px;
+  }
+
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- =====================================
+     2. ส่วนหัวเว็บไซต์
+====================================== -->
+
 <header>
-  <div style="letter-spacing:4px;color:#67e8f9">
-    INFORMATION TECHNOLOGY
+
+  <div class="tag">
+    INFORMATION TECHNOLOGY • RYTC
   </div>
 
-  <h1>IT ROBOT WORLD @ RYTC</h1>
+  <h1>IT SMART CAMPUS</h1>
 
   <div>
-    SMART ROBOT CITY V3.0 • เมืองหุ่นยนต์แห่งอนาคต
+    เมืองเทคโนโลยีแห่งอนาคต • V5.0
   </div>
+
+  <small>
+    Rayong Technical College
+  </small>
+
 </header>
 
 <main>
 
-<section id="stats">
+<section id="stats" class="statsgrid">
   กำลังเชื่อมต่อ...
 </section>
 
-<canvas id="city" width="1000" height="460"></canvas>
+<div class="layout">
 
-<small>
-  แตะหุ่นยนต์เพื่อดูความสนใจและให้หัวใจ
-</small>
+<div>
+
+<!-- =====================================
+     3. แผนที่ Smart Campus
+====================================== -->
+
+<section id="campus">
+
+  <h2>🌿 สำรวจ Smart Campus</h2>
+
+  <button id="full" style="margin-bottom:10px">
+    เต็มหน้าจอ
+  </button>
+
+  <div class="mapscroll">
+
+    <canvas
+      id="city"
+      width="1000"
+      height="460">
+    </canvas>
+
+  </div>
+
+  <p>
+    <small>
+      หุ่นยนต์เดินอัตโนมัติ •
+      แตะหุ่นยนต์เพื่อดูข้อมูลและให้หัวใจ •
+      บนมือถือเลื่อนแผนที่ได้
+    </small>
+  </p>
+
+</section>
 
 <section id="profile">
   เลือกหุ่นยนต์ในเมือง
 </section>
 
+<!-- =====================================
+     4. สร้างหุ่นยนต์
+====================================== -->
+
 <section>
+
   <h2>สร้างหุ่นยนต์ของคุณ</h2>
+
+  <div class="preview">
+
+    <canvas
+      id="preview"
+      width="100"
+      height="110">
+    </canvas>
+
+    <div>
+
+      <b>YOUR ROBOT</b>
+
+      <p>
+        <small>
+          ตัวอย่างหุ่นยนต์ของคุณ
+        </small>
+      </p>
+
+    </div>
+
+  </div>
 
   <div class="row">
 
-    <input id="name" maxlength="20"
+    <input
+      id="name"
+      maxlength="20"
       placeholder="ชื่อเล่น (ไม่ใช้ชื่อจริง)">
 
     <select id="type">
+
       <option>Explorer</option>
       <option>Coder</option>
       <option>AI</option>
       <option>Gamer</option>
       <option>Designer</option>
       <option>Network</option>
+
     </select>
 
-    <input id="color" type="color" value="#22d3ee">
+    <input
+      id="color"
+      type="color"
+      value="#22d3ee">
 
   </div>
 
@@ -173,36 +413,60 @@ a {
     ชื่อเล่นและความสนใจจะแสดงต่อผู้เล่นคนอื่น
     ข้อมูลใช้สรุปสถิติกิจกรรม
   </small>
+
 </section>
 
-<section>
-  <h2>🏆 หุ่นยนต์ยอดนิยม</h2>
-  <div id="ranking"></div>
-</section>
+</div>
 
-<section>
-  <h2>สถิติความสนใจวันนี้</h2>
-  <div id="interestStats"></div>
-</section>
+<!-- =====================================
+     5. อันดับและสถิติความสนใจ
+====================================== -->
+
+<aside>
+
+  <section>
+
+    <h2>🏆 หุ่นยนต์ยอดนิยม</h2>
+
+    <div id="ranking"></div>
+
+  </section>
+
+  <section>
+
+    <h2>📊 ความสนใจวันนี้</h2>
+
+    <div id="interestStats"></div>
+
+  </section>
+
+</aside>
+
+</div>
 
 </main>
 
 <footer>
-  แผนกวิชาเทคโนโลยีสารสนเทศ
+
+  แผนกวิชาเทคโนโลยีสารสนเทศ •
   วิทยาลัยเทคนิคระยอง
+
 </footer>
 
 <script type="module">
 
 // ======================================
-// 1. เชื่อมต่อ Firebase
+// 6. เชื่อมต่อ Firebase
 // ======================================
 
 import { initializeApp }
-from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
-import { getAuth, signInAnonymously }
-from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import {
+  getAuth,
+  signInAnonymously
+}
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 import {
   getDatabase,
@@ -211,29 +475,40 @@ import {
   onValue,
   serverTimestamp
 }
-from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyApJ61sy62NlQb-Ffga5eY0lN_P68lzUig",
+
   authDomain: "it-robot-world-rytc.firebaseapp.com",
+
   databaseURL: "https://it-robot-world-rytc-default-rtdb.asia-southeast1.firebasedatabase.app",
+
   projectId: "it-robot-world-rytc",
+
   storageBucket: "it-robot-world-rytc.firebasestorage.app",
+
   messagingSenderId: "764898190549",
+
   appId: "1:764898190549:web:b3b4cff76e46929a4e2e5c"
+
 };
 
 const app = initializeApp(firebaseConfig);
+
 const auth = getAuth(app);
+
 const db = getDatabase(app);
 
 const $ = id => document.getElementById(id);
 
 // ======================================
-// 2. รายการความสนใจ
+// 7. รายการความสนใจ
 // ======================================
 
 const labels = {
+
   ai: "AI ปัญญาประดิษฐ์",
   code: "เขียนโปรแกรม",
   game: "เกมและ E-Sport",
@@ -242,23 +517,27 @@ const labels = {
   network: "เครือข่าย",
   web: "สร้างเว็บไซต์",
   apply: "สนใจสมัครเรียน IT"
+
 };
 
-for (const [k, v] of Object.entries(labels)) {
+for (const [k,v] of Object.entries(labels)) {
 
   const l = document.createElement("label");
+
   const c = document.createElement("input");
 
   c.type = "checkbox";
+
   c.value = k;
 
-  l.append(c, v);
+  l.append(c,v);
 
   $("choices").append(l);
+
 }
 
 // ======================================
-// 3. ตัวแปรระบบ
+// 8. ตัวแปรระบบ
 // ======================================
 
 let uid;
@@ -273,94 +552,130 @@ let unsubs = [];
 let positions = new Map();
 let busy = false;
 
-// คำนวณวันที่ตามเวลาไทย UTC+7
+// เวลาไทย UTC+7
 
 const today = () => String(
+
   Math.floor(
-    (Date.now() + offset + 25200000) / 86400000
+    (Date.now()+offset+25200000)/86400000
   )
+
 );
 
-const path = (kind, ...parts) =>
-  ref(db, [kind, day, ...parts].join("/"));
+const path = (kind,...parts) =>
+  ref(db,[kind,day,...parts].join("/"));
 
 const count = id =>
   Object.keys(likes[id] || {}).length;
 
 // ======================================
-// 4. แสดงสถิติ
+// 9. แสดงสถิติผู้เข้าร่วม
 // ======================================
 
 function render() {
 
   const ids = Object.keys(robots);
 
-  $("stats").textContent =
-    `ผู้เข้าชม ${Object.keys(visits).length} บัญชี
-     • หุ่นยนต์ ${ids.length} ตัว
-     • หัวใจ ${ids.reduce((s, id) => s + count(id), 0)} ดวง`;
+  $("stats").innerHTML = [
+
+    [
+      Object.keys(visits).length,
+      "ผู้เข้าชม (บัญชี)"
+    ],
+
+    [
+      ids.length,
+      "หุ่นยนต์"
+    ],
+
+    [
+      ids.reduce((s,id)=>s+count(id),0),
+      "หัวใจ"
+    ]
+
+  ].map(([n,l])=>`
+
+    <div class="metric">
+      <b>${n}</b>
+      <span>${l}</span>
+    </div>
+
+  `).join("");
 
   $("create").disabled =
     !ready || busy || !!robots[uid];
 
+  // อันดับหุ่นยนต์ยอดนิยม
+
   $("ranking").replaceChildren();
 
-  ids.sort((a, b) => count(b) - count(a))
-    .slice(0, 10)
-    .forEach((id, i) => {
+  ids.sort((a,b)=>count(b)-count(a))
+    .slice(0,10)
+    .forEach((id,i)=>{
 
       const p = document.createElement("p");
 
       p.textContent =
-        `${i + 1}. ${robots[id].name} — ♥ ${count(id)}`;
+        `${i+1}. ${robots[id].name} — ♥ ${count(id)}`;
 
       $("ranking").append(p);
+
     });
+
+  // สถิติความสนใจ
 
   $("interestStats").replaceChildren();
 
-  for (const [k, v] of Object.entries(labels)) {
+  for (const [k,v] of Object.entries(labels)) {
 
     const p = document.createElement("p");
 
     p.textContent =
+
       `${v}: ${ids.filter(
-        id => robots[id].interests?.[k]
+        id=>robots[id].interests?.[k]
       ).length} บัญชี`;
 
     $("interestStats").append(p);
+
   }
 
   profile();
+
 }
 
 // ======================================
-// 5. ดูข้อมูลหุ่นยนต์และกดหัวใจ
+// 10. ระบบกดหัวใจ
 // ======================================
 
 function profile() {
 
   const p = $("profile");
+
   const r = robots[selected];
 
   p.replaceChildren();
 
   if (!r) {
+
     p.textContent = "เลือกหุ่นยนต์ในเมือง";
+
     return;
+
   }
 
   const h = document.createElement("strong");
 
-  h.textContent = r.name + " • " + r.type;
+  h.textContent = r.name+" • "+r.type;
 
   p.append(h);
 
   const d = document.createElement("p");
 
   d.textContent =
+
     Object.keys(r.interests || {})
-      .map(k => labels[k])
+      .map(k=>labels[k])
       .join(", ");
 
   p.append(d);
@@ -368,12 +683,15 @@ function profile() {
   const b = document.createElement("button");
 
   b.textContent =
-    `♥ ${count(selected)}
-    ${likes[selected]?.[uid]
-      ? "ให้หัวใจแล้ว"
-      : "ให้หัวใจ"}`;
+
+    `♥ ${count(selected)} ${
+      likes[selected]?.[uid]
+        ? "ให้หัวใจแล้ว"
+        : "ให้หัวใจ"
+    }`;
 
   b.disabled =
+
     !ready ||
     selected === uid ||
     !!likes[selected]?.[uid];
@@ -385,28 +703,31 @@ function profile() {
     try {
 
       await set(
-        path("likes", selected, uid),
+        path("likes",selected,uid),
         true
       );
 
-    } catch (e) {
+    } catch(e) {
 
       $("status").textContent = e.message;
+
       profile();
 
     }
+
   };
 
   p.append(b);
+
 }
 
 // ======================================
-// 6. โหลดข้อมูลจาก Firebase
+// 11. โหลดข้อมูลจาก Firebase
 // ======================================
 
 async function start() {
 
-  unsubs.forEach(f => f());
+  unsubs.forEach(f=>f());
 
   day = today();
 
@@ -417,47 +738,56 @@ async function start() {
   positions.clear();
 
   selected = null;
+
   ready = false;
 
   render();
 
-  for (const kind of ["robots", "likes", "visits"]) {
+  for (const kind of [
+    "robots",
+    "likes",
+    "visits"
+  ]) {
 
     unsubs.push(
+
       onValue(
+
         path(kind),
 
-        s => {
+        s=>{
 
-          if (kind === "robots")
+          if(kind==="robots")
             robots = s.val() || {};
 
-          if (kind === "likes")
+          if(kind==="likes")
             likes = s.val() || {};
 
-          if (kind === "visits")
+          if(kind==="visits")
             visits = s.val() || {};
 
           render();
 
         },
 
-        e => {
-          $("status").textContent = e.message;
-        }
+        e=>$("status").textContent=e.message
+
       )
+
     );
+
   }
 
-  await set(path("visits", uid), true);
+  await set(path("visits",uid),true);
 
   ready = true;
 
   render();
+
 }
 
 // ======================================
-// 7. สร้างหุ่นยนต์
+// 12. บันทึกหุ่นยนต์
 // ======================================
 
 $("create").onclick = async () => {
@@ -467,29 +797,36 @@ $("create").onclick = async () => {
   const interests = Object.fromEntries(
 
     [...$("choices").querySelectorAll("input:checked")]
-      .map(c => [c.value, true])
+
+      .map(c=>[c.value,true])
 
   );
 
-  if (!name || !Object.keys(interests).length) {
+  if(!name || !Object.keys(interests).length) {
 
     $("status").textContent =
       "กรุณาตั้งชื่อและเลือกความสนใจ";
 
     return;
+
   }
 
   busy = true;
+
   render();
 
   try {
 
-    await set(path("robots", uid), {
+    await set(path("robots",uid),{
 
-      name: name,
+      name,
+
       type: $("type").value,
+
       color: $("color").value,
-      interests: interests,
+
+      interests,
+
       createdAt: serverTimestamp()
 
     });
@@ -499,263 +836,900 @@ $("create").onclick = async () => {
 
     selected = uid;
 
-  } catch (e) {
+  } catch(e) {
 
     $("status").textContent = e.message;
 
   } finally {
 
     busy = false;
+
     render();
 
   }
+
 };
 
 // ======================================
-// 8. สร้างฉากเมือง
+// 13. ระบบ Canvas
 // ======================================
 
 const canvas = $("city");
+
 const ctx = canvas.getContext("2d");
 
-function rect(x, y, w, h, r, c) {
+function rect(x,y,w,h,r,c) {
 
   ctx.fillStyle = c;
+
   ctx.beginPath();
-  ctx.roundRect(x, y, w, h, r);
+
+  ctx.roundRect(x,y,w,h,r);
+
   ctx.fill();
 
 }
+
+// ======================================
+// 14. CUTE 3D ROBOT
+// วาดหุ่นยนต์รูปแบบใหม่
+// ======================================
+
+function drawCuteRobot(
+  c,
+  x,
+  y,
+  scale,
+  r,
+  phase=0,
+  isSelected=false
+) {
+
+  c.save();
+
+  c.translate(x,y);
+
+  c.scale(scale,scale);
+
+  const color =
+    /^#[0-9a-f]{6}$/i.test(r.color || "")
+      ? r.color
+      : "#22d3ee";
+
+  // ไล่ระดับสีให้มีมิติ
+
+  const grad = (x1,y1,x2,y2,a,b) => {
+
+    const g = c.createLinearGradient(
+      x1,y1,x2,y2
+    );
+
+    g.addColorStop(0,a);
+
+    g.addColorStop(.55,color);
+
+    g.addColorStop(1,b);
+
+    return g;
+
+  };
+
+  // ฟังก์ชันวาดรูปทรงมุมโค้ง
+
+  const rr = (xx,yy,w,h,rad,fill) => {
+
+    c.fillStyle = fill;
+
+    c.beginPath();
+
+    c.roundRect(xx,yy,w,h,rad);
+
+    c.fill();
+
+  };
+
+  // จังหวะการเดิน
+
+  const bob = Math.sin(phase)*2.2;
+
+  const step = Math.sin(phase*1.8)*4;
+
+  // เงาใต้หุ่นยนต์
+
+  c.shadowColor = color;
+
+  c.shadowBlur = 14;
+
+  c.fillStyle = color+"33";
+
+  c.beginPath();
+
+  c.ellipse(
+    0,3,25,7,0,0,Math.PI*2
+  );
+
+  c.fill();
+
+  c.shadowBlur = 0;
+
+  // ขาหุ่นยนต์
+
+  c.strokeStyle = "#526b80";
+
+  c.lineWidth = 8;
+
+  c.lineCap = "round";
+
+  c.beginPath();
+
+  c.moveTo(-9,-7+bob);
+
+  c.lineTo(-10-step*.45,3);
+
+  c.stroke();
+
+  c.beginPath();
+
+  c.moveTo(9,-7+bob);
+
+  c.lineTo(10+step*.45,3);
+
+  c.stroke();
+
+  // เท้าหุ่นยนต์
+
+  rr(
+    -17+(step<0?-2:0),
+    0,15,7,3,
+    "#263d53"
+  );
+
+  rr(
+    3+(step>0?2:0),
+    0,15,7,3,
+    "#263d53"
+  );
+
+  // แขนหุ่นยนต์
+
+  c.strokeStyle = "#71899c";
+
+  c.lineWidth = 8;
+
+  c.beginPath();
+
+  c.moveTo(-17,-27+bob);
+
+  c.lineTo(-23-step*.25,-13+bob);
+
+  c.stroke();
+
+  c.beginPath();
+
+  c.moveTo(17,-27+bob);
+
+  c.lineTo(23+step*.25,-13+bob);
+
+  c.stroke();
+
+  // มือหุ่นยนต์
+
+  c.fillStyle = "#dcebf1";
+
+  c.beginPath();
+
+  c.arc(
+    -23-step*.25,
+    -12+bob,
+    5,0,Math.PI*2
+  );
+
+  c.fill();
+
+  c.beginPath();
+
+  c.arc(
+    23+step*.25,
+    -12+bob,
+    5,0,Math.PI*2
+  );
+
+  c.fill();
+
+  // ลำตัวแบบ 3D
+
+  c.shadowColor = "#0003";
+
+  c.shadowBlur = 5;
+
+  c.shadowOffsetY = 3;
+
+  rr(
+    -18,-39+bob,
+    36,34,10,
+    grad(
+      -18,-39,
+      18,-5,
+      "#ffffff",
+      color
+    )
+  );
+
+  c.shadowBlur = 0;
+
+  c.shadowOffsetY = 0;
+
+  // หน้าจอบนลำตัว
+
+  rr(
+    -11,-31+bob,
+    22,17,5,
+    "#18364a"
+  );
+
+  rr(
+    -7,-27+bob,
+    14,3,2,
+    "#bffaff"
+  );
+
+  // เสาอากาศ
+
+  c.strokeStyle = "#71899c";
+
+  c.lineWidth = 3;
+
+  c.beginPath();
+
+  c.moveTo(0,-65+bob);
+
+  c.lineTo(0,-73+bob);
+
+  c.stroke();
+
+  c.fillStyle = "#fff";
+
+  c.beginPath();
+
+  c.arc(
+    0,-75+bob,
+    4,0,Math.PI*2
+  );
+
+  c.fill();
+
+  // หูหุ่นยนต์
+
+  rr(
+    -27,-60+bob,
+    7,15,3,
+    "#71899c"
+  );
+
+  rr(
+    20,-60+bob,
+    7,15,3,
+    "#71899c"
+  );
+
+  // ศีรษะทรงกลมแบบ Cute 3D
+
+  c.shadowColor = color;
+
+  c.shadowBlur = 10;
+
+  rr(
+
+    -25,-69+bob,
+
+    50,35,13,
+
+    grad(
+      -25,-69,
+      25,-34,
+      "#ffffff",
+      color
+    )
+
+  );
+
+  c.shadowBlur = 0;
+
+  // หน้าจอใบหน้า
+
+  rr(
+    -19,-63+bob,
+    38,22,8,
+    "#10283d"
+  );
+
+  // ดวงตาเรืองแสง
+
+  for(const ex of [-9,9]) {
+
+    c.fillStyle = "#66efff";
+
+    c.shadowColor = "#66efff";
+
+    c.shadowBlur = 7;
+
+    c.beginPath();
+
+    c.ellipse(
+      ex,
+      -52+bob,
+      4,5,0,0,Math.PI*2
+    );
+
+    c.fill();
+
+    c.shadowBlur = 0;
+
+    c.fillStyle = "#fff";
+
+    c.beginPath();
+
+    c.arc(
+      ex-1,
+      -54+bob,
+      1.5,0,Math.PI*2
+    );
+
+    c.fill();
+
+  }
+
+  // รอยยิ้ม
+
+  c.strokeStyle = "#c9faff";
+
+  c.lineWidth = 1.5;
+
+  c.beginPath();
+
+  c.arc(
+    0,-46+bob,
+    4,.2,Math.PI-.2
+  );
+
+  c.stroke();
+
+  c.shadowBlur = 0;
+
+  c.textAlign = "center";
+
+  c.font = "bold 7px Arial";
+
+  // ====================================
+  // 15. อุปกรณ์ประจำประเภทหุ่นยนต์
+  // ====================================
+
+  if(r.type==="Coder") {
+
+    rr(
+      -12,-25+bob,
+      24,12,3,
+      "#152b43"
+    );
+
+    c.fillStyle = "#83f3ff";
+
+    c.fillText("</>",0,-17+bob);
+
+  }
+
+  else if(r.type==="AI") {
+
+    c.strokeStyle = "#e5d5ff";
+
+    c.lineWidth = 2;
+
+    c.beginPath();
+
+    c.arc(
+      0,-75+bob,
+      8,Math.PI,Math.PI*2
+    );
+
+    c.stroke();
+
+    c.fillStyle = "#e9d5ff";
+
+    c.fillText("AI",0,-80+bob);
+
+  }
+
+  else if(r.type==="Gamer") {
+
+    rr(
+      -25,-73+bob,
+      12,7,3,
+      "#293e58"
+    );
+
+    rr(
+      13,-73+bob,
+      12,7,3,
+      "#293e58"
+    );
+
+    c.fillStyle = "#fff";
+
+    c.fillText("+",0,-17+bob);
+
+  }
+
+  else if(r.type==="Designer") {
+
+    c.strokeStyle = "#ffdaef";
+
+    c.lineWidth = 3;
+
+    c.beginPath();
+
+    c.moveTo(19,-35+bob);
+
+    c.lineTo(28,-52+bob);
+
+    c.stroke();
+
+    c.fillStyle = "#ffdaef";
+
+    c.beginPath();
+
+    c.arc(
+      28,-53+bob,
+      3,0,Math.PI*2
+    );
+
+    c.fill();
+
+  }
+
+  else if(r.type==="Network") {
+
+    c.strokeStyle = "#d7faff";
+
+    c.lineWidth = 1.8;
+
+    c.beginPath();
+
+    c.arc(
+      0,-75+bob,
+      10,
+      Math.PI*1.15,
+      Math.PI*1.85
+    );
+
+    c.stroke();
+
+    c.beginPath();
+
+    c.arc(
+      0,-75+bob,
+      6,
+      Math.PI*1.15,
+      Math.PI*1.85
+    );
+
+    c.stroke();
+
+  }
+
+  else {
+
+    c.fillStyle = "#fff2bd";
+
+    c.font = "10px Arial";
+
+    c.fillText("★",0,-17+bob);
+
+  }
+
+  // ป้ายชื่อหุ่นยนต์
+
+  c.font = "bold 10px Arial";
+
+  const label =
+    String(r.name || "Robot").slice(0,18);
+
+  const width = Math.max(
+    38,
+    c.measureText(label).width+12
+  );
+
+  rr(
+    -width/2,
+    7,
+    width,
+    14,
+    5,
+    "#ffffff"
+  );
+
+  c.fillStyle = "#183b40";
+
+  c.fillText(label,0,17);
+
+  // จำนวนหัวใจเหนือศีรษะ
+
+  c.font = "bold 10px Arial";
+
+  c.fillStyle = "#c52e68";
+
+  c.fillText(
+
+    "♥ "+(r.heartCount || 0),
+
+    0,-88+bob
+
+  );
+
+  // กรอบแสดงหุ่นยนต์ที่เลือก
+
+  if(isSelected) {
+
+    c.strokeStyle = "#087e70";
+
+    c.lineWidth = 2;
+
+    c.setLineDash([4,3]);
+
+    c.beginPath();
+
+    c.ellipse(
+      0,-31,
+      34,57,
+      0,0,Math.PI*2
+    );
+
+    c.stroke();
+
+    c.setLineDash([]);
+
+  }
+
+  c.restore();
+
+}
+
+// ======================================
+// 16. สร้างฉาก Smart Campus
+// ======================================
 
 let last = 0;
 
 function draw(t) {
 
-  const dt = Math.min((t - last) / 16.67, 3);
+  const dt = Math.min(
+    (t-last)/16.67,
+    3
+  );
 
   last = t;
 
-  const g = ctx.createLinearGradient(0, 0, 0, 460);
+  // สนามหญ้า
 
-  g.addColorStop(0, "#211b49");
-  g.addColorStop(1, "#0a2335");
+  ctx.fillStyle = "#bfe6c9";
 
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, 1000, 460);
+  ctx.fillRect(0,0,1000,460);
 
-  // อาคาร
+  rect(
+    15,15,
+    970,430,
+    28,
+    "#d8f0d9"
+  );
 
-  for (let i = 0; i < 20; i++) {
+  // ทางเดิน
 
-    let h = 65 + i * 47 % 145;
-    let x = i * 51;
+  rect(
+    12,225,
+    976,220,
+    20,
+    "#e9e6d8"
+  );
 
-    rect(x, 220 - h, 43, h, 2, "#203b59");
+  rect(
+    12,245,
+    976,12,
+    5,
+    "#fff9ed"
+  );
 
-    for (let j = 8; j < h - 8; j += 17) {
+  // ====================================
+  // 17. อาคารเทคโนโลยี 6 โซน
+  // ====================================
 
-      for (let k = 8; k < 40; k += 14) {
+  const zones = [
 
-        rect(
-          x + k,
-          220 - h + j,
-          4, 9, 0,
-          "#55bfd5"
-        );
+    ["AI LAB","#9574ce","AI"],
 
-      }
+    ["CODING CENTER","#3996c7","</>"],
+
+    ["GAMING ARENA","#e6a04e","+"],
+
+    ["ROBOTICS LAB","#4aa77b","BOT"],
+
+    ["DESIGN STUDIO","#dc83a6","ART"],
+
+    ["NETWORK CENTER","#49b5ba","NET"]
+
+  ];
+
+  for(let i=0;i<6;i++) {
+
+    const [name,c,icon] = zones[i];
+
+    const x = 24+i*163;
+
+    // พื้นที่อาคาร
+
+    rect(
+      x,48,
+      140,170,
+      12,
+      "#a7d7af"
+    );
+
+    // เงาอาคาร
+
+    rect(
+      x+9,92,
+      122,105,
+      8,
+      "#829fa3"
+    );
+
+    // ตัวอาคาร
+
+    rect(
+      x+5,77,
+      122,105,
+      8,
+      "#f9fffc"
+    );
+
+    // หลังคา
+
+    rect(
+      x+5,77,
+      122,28,
+      8,c
+    );
+
+    // หน้าต่าง
+
+    rect(
+      x+18,114,
+      96,40,
+      6,
+      "#b8dfe9"
+    );
+
+    for(let j=0;j<3;j++) {
+
+      rect(
+
+        x+23+j*30,
+
+        119,
+
+        23,29,
+
+        3,
+
+        "#65a7bb"
+
+      );
+
     }
+
+    // ประตู
+
+    rect(
+      x+53,158,
+      26,24,
+      4,c
+    );
+
+    // ชื่ออาคาร
+
+    ctx.textAlign = "center";
+
+    ctx.fillStyle = "#fff";
+
+    ctx.font = "bold 12px Arial";
+
+    ctx.fillText(
+      name,
+      x+66,
+      95
+    );
+
+    // สัญลักษณ์อาคาร
+
+    ctx.fillStyle = "#28545a";
+
+    ctx.font = "bold 18px Arial";
+
+    ctx.fillText(
+      icon,
+      x+66,
+      68
+    );
+
+    // ทางเดินหน้าอาคาร
+
+    rect(
+      x+55,197,
+      22,28,
+      4,
+      "#f4f1e6"
+    );
+
   }
 
-  // พื้นเมือง
+  // ====================================
+  // 18. ต้นไม้และพื้นที่สีเขียว
+  // ====================================
 
-  ctx.strokeStyle = "#25485e";
+  for(let i=0;i<12;i++) {
 
-  for (let i = 0; i < 20; i++) {
+    let x = 40+i*83;
+
+    rect(
+      x,18,
+      5,18,
+      2,
+      "#9a8060"
+    );
+
+    ctx.fillStyle = "#54a97b";
 
     ctx.beginPath();
 
-    ctx.moveTo(500 + (i - 10) * 25, 220);
-    ctx.lineTo((i - 10) * 120 + 500, 460);
+    ctx.arc(
+      x+2,17,
+      12,0,Math.PI*2
+    );
 
-    ctx.stroke();
-
-  }
-
-  for (let y of [240, 275, 320, 380, 450]) {
-
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(1000, y);
-    ctx.stroke();
+    ctx.fill();
 
   }
 
-// ======================================
-// 9. ระบบเดินอัตโนมัติ
-// ======================================
+  ctx.fillStyle = "#6b8c79";
 
-  for (const id of Object.keys(robots)) {
+  ctx.font = "bold 13px Arial";
 
-    if (!positions.has(id)) {
+  ctx.textAlign = "center";
 
-      positions.set(id, {
+  ctx.fillText(
+    "SMART CAMPUS WALKWAY",
+    500,275
+  );
 
-        x: 45 + Math.random() * 910,
-        y: 310 + Math.random() * 110,
-        vx: (Math.random() - .5) * 1.8,
-        vy: (Math.random() - .5) * .5
+  for(let x=35;x<980;x+=80) {
+
+    rect(
+      x,438,
+      42,4,
+      2,
+      "#fff"
+    );
+
+  }
+
+  // ====================================
+  // 19. ระบบเดินอัตโนมัติ
+  // ====================================
+
+  for(const id of Object.keys(robots)) {
+
+    if(!positions.has(id)) {
+
+      positions.set(id,{
+
+        x:45+Math.random()*910,
+
+        y:310+Math.random()*110,
+
+        vx:(Math.random()-.5)*1.8,
+
+        vy:(Math.random()-.5)*.5
 
       });
+
     }
 
     const p = positions.get(id);
 
-    p.x += p.vx * dt;
-    p.y += p.vy * dt;
+    p.x += p.vx*dt;
 
-    if (p.x < 35 || p.x > 965) {
+    p.y += p.vy*dt;
 
-      p.x = Math.max(35, Math.min(965, p.x));
+    // เปลี่ยนทิศทางเมื่อถึงขอบ
+
+    if(p.x<35 || p.x>965) {
+
+      p.x = Math.max(
+        35,
+        Math.min(965,p.x)
+      );
+
       p.vx *= -1;
 
     }
 
-    if (p.y < 300 || p.y > 425) {
+    if(p.y<300 || p.y>425) {
 
-      p.y = Math.max(300, Math.min(425, p.y));
+      p.y = Math.max(
+        300,
+        Math.min(425,p.y)
+      );
+
       p.vy *= -1;
 
     }
 
-    // เปลี่ยนทิศทางแบบสุ่ม
+    // สุ่มทิศทางการเดิน
 
-    if (Math.random() < .004) {
+    if(Math.random()<.004) {
 
-      p.vx = (Math.random() - .5) * 2;
-      p.vy = (Math.random() - .5) * .6;
+      p.vx = (Math.random()-.5)*2;
+
+      p.vy = (Math.random()-.5)*.6;
 
     }
+
   }
 
-// ======================================
-// 10. วาดตัวหุ่นยนต์
-// ======================================
+  // ====================================
+  // 20. แสดงหุ่นยนต์ Cute 3D ทุกตัว
+  // ====================================
 
-  for (const id of Object.keys(robots).sort(
-    (a, b) => positions.get(a).y - positions.get(b).y
+  for(const id of Object.keys(robots).sort(
+
+    (a,b)=>
+      positions.get(a).y-
+      positions.get(b).y
+
   )) {
 
     const r = robots[id];
+
     const p = positions.get(id);
 
-    const s = Math.sin(t / 130 + p.x * .04) * 5;
+    r.heartCount = count(id);
 
-    ctx.save();
-    ctx.translate(p.x, p.y);
+    drawCuteRobot(
 
-    // เงา
+      ctx,
 
-    ctx.fillStyle = "#0005";
-    ctx.beginPath();
+      p.x,
 
-    ctx.ellipse(0, 0, 23, 6, 0, 0, Math.PI * 2);
-    ctx.fill();
+      p.y,
 
-    // แขนและขา
+      0.9,
 
-    ctx.strokeStyle = r.color;
-    ctx.lineWidth = 7;
-    ctx.lineCap = "round";
+      r,
 
-    for (const d of [-1, 1]) {
+      t/240,
 
-      ctx.beginPath();
-      ctx.moveTo(d * 17, -30);
-      ctx.lineTo(d * 25, -14 + d * s);
-      ctx.stroke();
+      id===selected
 
-      ctx.beginPath();
-      ctx.moveTo(d * 9, -12);
-      ctx.lineTo(d * 9 + d * s, 0);
-      ctx.stroke();
-
-    }
-
-    // ลำตัว
-
-    rect(-17, -39, 34, 28, 5, r.color);
-
-    // ศีรษะ
-
-    rect(
-      -23, -70, 46, 28,
-      r.type === "Explorer" ? 14 :
-      r.type === "AI" ? 10 : 3,
-      r.color
     );
 
-    // ใบหน้าและดวงตา
-
-    rect(-17, -64, 34, 15, 4, "#10192c");
-
-    rect(-11, -60, 7, 7, 2, "white");
-    rect(4, -60, 7, 7, 2, "white");
-
-    // เสาอากาศ
-
-    rect(-2, -80, 4, 10, 1, r.color);
-    rect(-6, -84, 12, 7, 4, r.color);
-
-    // สัญลักษณ์บนตัวหุ่นยนต์
-
-    rect(-12, -34, 24, 15, 3, "#10192c");
-
-    ctx.textAlign = "center";
-    ctx.font = "bold 10px Arial";
-    ctx.fillStyle = "white";
-
-    ctx.fillText({
-
-      AI: "AI",
-      Coder: "</>",
-      Gamer: "+",
-      Designer: "ART",
-      Network: "NET",
-      Explorer: "EXP"
-
-    }[r.type], 0, -23);
-
-    // ชื่อหุ่นยนต์
-
-    ctx.font = "bold 13px Arial";
-    ctx.fillText(r.name, 0, 17);
-
-    // จำนวนหัวใจ
-
-    ctx.fillStyle = "#fda4af";
-    ctx.fillText("♥ " + count(id), 0, -91);
-
-    // กรอบเมื่อเลือกหุ่นยนต์
-
-    if (id === selected) {
-
-      ctx.strokeStyle = "#fff";
-      ctx.lineWidth = 1;
-      ctx.strokeRect(-30, -87, 60, 90);
-
-    }
-
-    ctx.restore();
   }
 
   requestAnimationFrame(draw);
+
 }
 
 requestAnimationFrame(draw);
 
 // ======================================
-// 11. คลิกเลือกหุ่นยนต์
+// 21. คลิกเลือกหุ่นยนต์
 // ======================================
 
 canvas.onclick = e => {
@@ -763,64 +1737,177 @@ canvas.onclick = e => {
   const b = canvas.getBoundingClientRect();
 
   const x =
-    (e.clientX - b.left) * 1000 / b.width;
+    (e.clientX-b.left)*1000/b.width;
 
   const y =
-    (e.clientY - b.top) * 460 / b.height;
+    (e.clientY-b.top)*460/b.height;
 
   let best = 55;
 
-  for (const [id, p] of positions) {
+  for(const [id,p] of positions) {
 
-    if (!robots[id]) continue;
+    if(!robots[id]) continue;
 
     const d = Math.hypot(
-      x - p.x,
-      y - p.y + 40
+
+      x-p.x,
+
+      y-p.y+40
+
     );
 
-    if (d < best) {
+    if(d<best) {
 
       best = d;
+
       selected = id;
 
     }
+
   }
 
   profile();
+
 };
 
 // ======================================
-// 12. เข้าสู่ระบบและตรวจสอบวันใหม่
+// 22. แสดงตัวอย่างหุ่นยนต์ก่อนสร้าง
+// ======================================
+
+function preview() {
+
+  const c =
+    $("preview").getContext("2d");
+
+  c.clearRect(0,0,100,110);
+
+  drawCuteRobot(
+
+    c,
+
+    50,
+
+    94,
+
+    1.05,
+
+    {
+
+      name: $("name").value || "YOUR BOT",
+
+      type: $("type").value,
+
+      color: $("color").value,
+
+      heartCount: 0
+
+    },
+
+    performance.now()/500,
+
+    false
+
+  );
+
+}
+
+// เปลี่ยนสีหุ่นยนต์
+
+$("color").addEventListener(
+
+  "input",
+
+  preview
+
+);
+
+// เปลี่ยนประเภทหุ่นยนต์
+
+$("type").addEventListener(
+
+  "change",
+
+  preview
+
+);
+
+// เปลี่ยนชื่อหุ่นยนต์
+
+$("name").addEventListener(
+
+  "input",
+
+  preview
+
+);
+
+preview();
+
+// ======================================
+// 23. โหมดเต็มหน้าจอ
+// ======================================
+
+$("full").onclick = () => {
+
+  if(document.fullscreenElement) {
+
+    document.exitFullscreen();
+
+  }
+
+  else if($("campus").requestFullscreen) {
+
+    $("campus").requestFullscreen()
+
+      .catch(()=>{});
+
+  }
+
+};
+
+// ======================================
+// 24. เข้าสู่ระบบ Firebase
 // ======================================
 
 try {
 
-  uid = (await signInAnonymously(auth)).user.uid;
+  uid = (
+
+    await signInAnonymously(auth)
+
+  ).user.uid;
 
   onValue(
-    ref(db, ".info/serverTimeOffset"),
-    s => offset = s.val() || 0
+
+    ref(db,".info/serverTimeOffset"),
+
+    s=>offset=s.val() || 0
+
   );
 
   await start();
 
-  setInterval(() => {
+  // ตรวจสอบวันใหม่ทุก 10 วินาที
 
-    if (day !== today()) {
+  setInterval(()=>{
 
-      start().catch(e => {
-        $("status").textContent = e.message;
-      });
+    if(day!==today()) {
+
+      start().catch(
+
+        e=>$("status").textContent=e.message
+
+      );
 
     }
 
-  }, 10000);
+  },10000);
 
-} catch (e) {
+} catch(e) {
 
   $("status").textContent =
-    "เชื่อมต่อไม่ได้: " + e.message;
+
+    "เชื่อมต่อไม่ได้: "+e.message;
 
 }
 
@@ -828,4 +1915,3 @@ try {
 
 </body>
 </html>
-
