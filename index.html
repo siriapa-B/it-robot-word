@@ -3,7 +3,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>IT ROBOT WORLD @ RYTC</title>
 
 <style>
@@ -13,31 +13,20 @@
 
 body {
   margin: 0;
-  background: #080d20;
-  color: #eef6ff;
-  font-family: Arial, sans-serif;
+  background: #090f23;
+  color: #e7f5ff;
+  font: 16px Arial, sans-serif;
 }
 
 header {
   text-align: center;
-  padding: 25px 10px;
-  background: linear-gradient(120deg, #101c40, #28134d);
-}
-
-header strong {
-  letter-spacing: 3px;
-  color: #ffffff;
-  font-size: clamp(18px, 4vw, 30px);
+  padding: 28px;
+  background: linear-gradient(120deg, #102c40, #30204e);
 }
 
 h1 {
+  margin: 10px;
   color: #67e8f9;
-  margin: 12px 0;
-  font-size: clamp(26px, 5vw, 48px);
-}
-
-p {
-  margin: 8px;
 }
 
 main {
@@ -46,168 +35,75 @@ main {
   padding: 16px;
 }
 
-.stats {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.stat, form {
-  background: #15213d;
-  border: 1px solid #34476a;
+section {
+  background: #16213b;
+  border: 1px solid #354b70;
   border-radius: 16px;
-  padding: 16px;
-}
-
-.stat {
-  text-align: center;
-  min-width: 140px;
-}
-
-.stat b {
-  display: block;
-  font-size: 32px;
-  color: #67e8f9;
-}
-
-#city {
-  position: relative;
-  overflow: hidden;
-  height: 440px;
-  margin: 16px 0;
-  border: 1px solid #41628c;
-  border-radius: 20px;
-  background: linear-gradient(
-    #101338,
-    #31245b 48%,
-    #142d43 49%,
-    #081526
-  );
-  isolation: isolate;
-}
-
-.building {
-  position: absolute;
-  bottom: 48%;
-  background:
-    repeating-linear-gradient(
-      0deg, transparent 0 13px,
-      #172c50 13px 18px
-    ),
-    repeating-linear-gradient(
-      90deg, #203654 0 8px,
-      #55c9df 8px 12px,
-      #203654 12px 20px
-    );
-  border: 1px solid #53749d;
-  box-shadow: 0 0 15px #36b9ed44;
-}
-
-.road {
-  position: absolute;
-  inset: 53% 0 0;
-  background:
-    repeating-linear-gradient(
-      0deg, transparent 0 48px,
-      #6ce6ff22 49px 50px
-    ),
-    repeating-linear-gradient(
-      90deg, transparent 0 65px,
-      #6ce6ff22 66px 67px
-    );
-  transform: perspective(250px) rotateX(22deg);
-  transform-origin: bottom;
-}
-
-.robot {
-  position: absolute;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  animation: walk 9s ease-in-out infinite alternate;
-  filter: drop-shadow(0 0 6px var(--c));
-  max-width: 110px;
-}
-
-.robot svg {
-  width: 48px;
-  height: 60px;
-}
-
-.robot span {
-  font-size: 12px;
-  background: #080d20dd;
-  padding: 3px 6px;
-  border-radius: 6px;
-  overflow-wrap: anywhere;
-  text-align: center;
-}
-
-@keyframes walk {
-  to {
-    transform: translate(var(--dx), var(--dy));
-  }
-}
-
-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: end;
-}
-
-label {
-  display: grid;
-  gap: 6px;
-  flex: 1;
-  min-width: 130px;
+  padding: 18px;
+  margin: 14px 0;
 }
 
 input, select, button {
   font: inherit;
-  padding: 12px;
-  border-radius: 9px;
-  border: 1px solid #52698d;
-  background: #0d1830;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #53678b;
+  background: #101a30;
   color: white;
-}
-
-input[type=color] {
-  width: 100%;
-  height: 45px;
-  padding: 4px;
 }
 
 button {
   background: #67e8f9;
-  color: #071526;
+  color: #092033;
   font-weight: bold;
   cursor: pointer;
 }
 
 button:disabled {
-  opacity: .5;
+  opacity: .45;
   cursor: default;
 }
 
-#status {
-  min-height: 24px;
-  text-align: center;
-  color: #b9e7ff;
+canvas {
+  width: 100%;
+  height: auto;
+  border: 1px solid #405d80;
+  border-radius: 16px;
+  touch-action: manipulation;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.row > * {
+  flex: 1;
+  min-width: 130px;
+}
+
+label {
+  display: inline-block;
+  margin: 8px;
+}
+
+small {
+  color: #a5b4fc;
 }
 
 footer {
   text-align: center;
   padding: 20px;
-  color: #a8b9d6;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .robot {
-    animation: none;
-  }
+#profile button {
+  margin: 8px;
+}
+
+a {
+  color: #67e8f9;
 }
 </style>
 </head>
@@ -215,103 +111,107 @@ footer {
 <body>
 
 <header>
-  <strong>INFORMATION TECHNOLOGY</strong>
-  <p>แผนกวิชาเทคโนโลยีสารสนเทศ</p>
-  <h1>🤖 IT ROBOT WORLD</h1>
-  <p>RAYONG TECHNICAL COLLEGE • เมืองหุ่นยนต์แห่งอนาคต</p>
+  <div style="letter-spacing:4px;color:#67e8f9">
+    INFORMATION TECHNOLOGY
+  </div>
+
+  <h1>IT ROBOT WORLD @ RYTC</h1>
+
+  <div>
+    SMART ROBOT CITY V3.0 • เมืองหุ่นยนต์แห่งอนาคต
+  </div>
 </header>
 
 <main>
 
-  <div class="stats">
+<section id="stats">
+  กำลังเชื่อมต่อ...
+</section>
 
-    <div class="stat">
-      <b id="count">—</b>
-      หุ่นยนต์วันนี้
-    </div>
+<canvas id="city" width="1000" height="460"></canvas>
 
-    <div class="stat">
-      <b id="date">—</b>
-      วันที่ (เวลาไทย)
-    </div>
+<small>
+  แตะหุ่นยนต์เพื่อดูความสนใจและให้หัวใจ
+</small>
+
+<section id="profile">
+  เลือกหุ่นยนต์ในเมือง
+</section>
+
+<section>
+  <h2>สร้างหุ่นยนต์ของคุณ</h2>
+
+  <div class="row">
+
+    <input id="name" maxlength="20"
+      placeholder="ชื่อเล่น (ไม่ใช้ชื่อจริง)">
+
+    <select id="type">
+      <option>Explorer</option>
+      <option>Coder</option>
+      <option>AI</option>
+      <option>Gamer</option>
+      <option>Designer</option>
+      <option>Network</option>
+    </select>
+
+    <input id="color" type="color" value="#22d3ee">
 
   </div>
 
-  <div id="city" aria-label="เมืองหุ่นยนต์">
-    <div class="road"></div>
-    <div id="robots"></div>
-  </div>
+  <h3>ความสนใจ</h3>
 
-  <form id="form">
+  <div id="choices"></div>
 
-    <label>
-      ชื่อเล่นหุ่นยนต์
-      <input id="name"
-             maxlength="20"
-             required
-             placeholder="ไม่ใช้ชื่อจริง">
-    </label>
+  <button id="create" disabled>
+    ปล่อยหุ่นยนต์เข้าสู่เมือง
+  </button>
 
-    <label>
-      รูปแบบ
-      <select id="type">
-        <option value="Explorer">Explorer</option>
-        <option value="Coder">Coder</option>
-        <option value="Guardian">Guardian</option>
-      </select>
-    </label>
+  <p id="status" role="status"></p>
 
-    <label>
-      สีหุ่นยนต์
-      <input id="color" type="color" value="#67e8f9">
-    </label>
+  <small>
+    ชื่อเล่นและความสนใจจะแสดงต่อผู้เล่นคนอื่น
+    ข้อมูลใช้สรุปสถิติกิจกรรม
+  </small>
+</section>
 
-    <button id="join" disabled>
-      ปล่อยหุ่นยนต์เข้าสู่เมือง
-    </button>
+<section>
+  <h2>🏆 หุ่นยนต์ยอดนิยม</h2>
+  <div id="ranking"></div>
+</section>
 
-  </form>
-
-  <p id="status" role="status">กำลังเชื่อมต่อ...</p>
-
-  <p>
-    ใช้ชื่อเล่นเท่านั้น ชื่อและหุ่นยนต์จะแสดงให้ผู้เล่นคนอื่นเห็น
-    และข้อมูลจะถูกเก็บเพื่อสถิติกิจกรรม
-  </p>
+<section>
+  <h2>สถิติความสนใจวันนี้</h2>
+  <div id="interestStats"></div>
+</section>
 
 </main>
 
 <footer>
-  IT ROBOT WORLD V2.0 •
-  แผนกวิชาเทคโนโลยีสารสนเทศ วิทยาลัยเทคนิคระยอง
+  แผนกวิชาเทคโนโลยีสารสนเทศ
+  วิทยาลัยเทคนิคระยอง
 </footer>
 
 <script type="module">
 
-import { initializeApp }
-from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js';
+// ======================================
+// 1. เชื่อมต่อ Firebase
+// ======================================
 
-import {
-  getAuth,
-  signInAnonymously,
-  onAuthStateChanged
-}
-from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js';
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+
+import { getAuth, signInAnonymously }
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
 
 import {
   getDatabase,
   ref,
-  onValue,
   set,
+  onValue,
   serverTimestamp
 }
-from 'https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js';
-
-
-// ==========================
-// ตั้งค่า Firebase
-// ==========================
-
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyApJ61sy62NlQb-Ffga5eY0lN_P68lzUig",
@@ -323,373 +223,604 @@ const firebaseConfig = {
   appId: "1:764898190549:web:b3b4cff76e46929a4e2e5c"
 };
 
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
 
 const $ = id => document.getElementById(id);
 
+// ======================================
+// 2. รายการความสนใจ
+// ======================================
 
-// ==========================
-// สร้างฉากเมือง
-// ==========================
+const labels = {
+  ai: "AI ปัญญาประดิษฐ์",
+  code: "เขียนโปรแกรม",
+  game: "เกมและ E-Sport",
+  iot: "หุ่นยนต์และ IoT",
+  design: "กราฟิก",
+  network: "เครือข่าย",
+  web: "สร้างเว็บไซต์",
+  apply: "สนใจสมัครเรียน IT"
+};
 
-for (let i = 0; i < 16; i++) {
+for (const [k, v] of Object.entries(labels)) {
 
-  const b = document.createElement('div');
+  const l = document.createElement("label");
+  const c = document.createElement("input");
 
-  b.className = 'building';
-  b.style.left = (i * 6.5) + '%';
-  b.style.width = '5.5%';
-  b.style.height = (60 + (i * 37) % 145) + 'px';
+  c.type = "checkbox";
+  c.value = k;
 
-  $('city').prepend(b);
+  l.append(c, v);
 
+  $("choices").append(l);
 }
 
-
-// ==========================
-// ตัวแปรระบบ
-// ==========================
+// ======================================
+// 3. ตัวแปรระบบ
+// ======================================
 
 let uid;
 let day;
 let offset = 0;
-let unsub;
+let robots = {};
+let likes = {};
+let visits = {};
+let selected = null;
 let ready = false;
-let connected = false;
-let exists = false;
+let unsubs = [];
+let positions = new Map();
 let busy = false;
 
-const status = t => $('status').textContent = t;
+// คำนวณวันที่ตามเวลาไทย UTC+7
 
-const update = () => {
-  $('join').disabled =
-    !ready || !connected || exists || busy;
-};
+const today = () => String(
+  Math.floor(
+    (Date.now() + offset + 25200000) / 86400000
+  )
+);
 
+const path = (kind, ...parts) =>
+  ref(db, [kind, day, ...parts].join("/"));
 
-// ==========================
-// แสดงหุ่นยนต์ในเมือง
-// ==========================
+const count = id =>
+  Object.keys(likes[id] || {}).length;
 
-function render(data) {
+// ======================================
+// 4. แสดงสถิติ
+// ======================================
 
-  $('robots').replaceChildren();
+function render() {
 
-  const entries = Object.entries(data || {});
+  const ids = Object.keys(robots);
 
-  $('count').textContent = entries.length;
+  $("stats").textContent =
+    `ผู้เข้าชม ${Object.keys(visits).length} บัญชี
+     • หุ่นยนต์ ${ids.length} ตัว
+     • หัวใจ ${ids.reduce((s, id) => s + count(id), 0)} ดวง`;
 
-  entries.forEach(([id, r], i) => {
+  $("create").disabled =
+    !ready || busy || !!robots[uid];
 
-    const el = document.createElement('div');
+  $("ranking").replaceChildren();
 
-    el.className = 'robot';
+  ids.sort((a, b) => count(b) - count(a))
+    .slice(0, 10)
+    .forEach((id, i) => {
 
-    el.style.left = (4 + (i * 37) % 80) + '%';
-    el.style.top = (53 + (i * 13) % 26) + '%';
+      const p = document.createElement("p");
 
-    el.style.setProperty(
-      '--dx',
-      ((i % 2 ? 1 : -1) * 15) + 'px'
-    );
+      p.textContent =
+        `${i + 1}. ${robots[id].name} — ♥ ${count(id)}`;
 
-    el.style.setProperty('--dy', '8px');
-    el.style.animationDelay = -(i % 9) + 's';
-
-    const c = /^#[0-9a-f]{6}$/i.test(r.color)
-      ? r.color
-      : '#67e8f9';
-
-    el.style.setProperty('--c', c);
-
-    const ns = 'http://www.w3.org/2000/svg';
-
-    const s = document.createElementNS(ns, 'svg');
-
-    s.setAttribute('viewBox', '0 0 60 72');
-
-    const shape = (tag, attrs) => {
-
-      const n = document.createElementNS(ns, tag);
-
-      Object.entries(attrs).forEach(([k, v]) => {
-        n.setAttribute(k, v);
-      });
-
-      s.append(n);
-
-    };
-
-    // หัวหุ่นยนต์
-
-    shape('rect', {
-      x: 12,
-      y: 8,
-      width: 36,
-      height: 26,
-      rx: r.type === 'Guardian' ? 3 : 9,
-      fill: c
+      $("ranking").append(p);
     });
 
-    // ลำตัว
+  $("interestStats").replaceChildren();
 
-    shape('rect', {
-      x: 16,
-      y: 38,
-      width: 28,
-      height: 22,
-      rx: 5,
-      fill: c
-    });
+  for (const [k, v] of Object.entries(labels)) {
 
-    // แขนซ้าย
+    const p = document.createElement("p");
 
-    shape('rect', {
-      x: 5,
-      y: 39,
-      width: 8,
-      height: 19,
-      rx: 4,
-      fill: c
-    });
+    p.textContent =
+      `${v}: ${ids.filter(
+        id => robots[id].interests?.[k]
+      ).length} บัญชี`;
 
-    // แขนขวา
+    $("interestStats").append(p);
+  }
 
-    shape('rect', {
-      x: 47,
-      y: 39,
-      width: 8,
-      height: 19,
-      rx: 4,
-      fill: c
-    });
-
-    // ดวงตา
-
-    for (const x of [21, 39]) {
-
-      shape('circle', {
-        cx: x,
-        cy: 21,
-        r: 4,
-        fill: '#101b36'
-      });
-
-    }
-
-    // ขาหุ่นยนต์
-
-    for (const x of [18, 34]) {
-
-      shape('rect', {
-        x,
-        y: 61,
-        width: 9,
-        height: 10,
-        rx: 3,
-        fill: c
-      });
-
-    }
-
-    if (r.type === 'Coder') {
-
-      shape('rect', {
-        x: 22,
-        y: 43,
-        width: 16,
-        height: 9,
-        rx: 2,
-        fill: '#101b36'
-      });
-
-    }
-
-    el.append(s);
-
-    const name = document.createElement('span');
-
-    name.textContent = r.name;
-
-    el.append(name);
-
-    $('robots').append(el);
-
-  });
-
-  exists = Object.prototype.hasOwnProperty.call(
-    data || {},
-    uid
-  );
-
-  ready = true;
-
-  update();
-
-  status(
-    exists
-      ? 'หุ่นยนต์ของคุณอยู่ในเมืองแล้ววันนี้'
-      : connected
-        ? 'พร้อมสร้างหุ่นยนต์'
-        : 'กำลังรอการเชื่อมต่อ'
-  );
-
+  profile();
 }
 
+// ======================================
+// 5. ดูข้อมูลหุ่นยนต์และกดหัวใจ
+// ======================================
 
-// ==========================
-// เชื่อมต่อ Firebase
-// ==========================
+function profile() {
 
-try {
+  const p = $("profile");
+  const r = robots[selected];
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getDatabase(app);
+  p.replaceChildren();
 
-
-  // เปลี่ยนเมืองตามวัน เวลาไทย
-
-  function sync() {
-
-    if (!uid) return;
-
-    const t = Date.now() + offset;
-
-    const d = String(
-      Math.floor((t + 25200000) / 86400000)
-    );
-
-    $('date').textContent =
-      new Intl.DateTimeFormat('th-TH', {
-        timeZone: 'Asia/Bangkok',
-        day: 'numeric',
-        month: 'short'
-      }).format(t);
-
-    if (day === d) return;
-
-    day = d;
-    ready = false;
-    exists = false;
-
-    update();
-
-    $('count').textContent = '—';
-
-    $('robots').replaceChildren();
-
-    if (unsub) unsub();
-
-    unsub = onValue(
-      ref(db, 'robots/' + day),
-      snap => render(snap.val()),
-      e => {
-        ready = false;
-        update();
-        status('อ่านข้อมูลไม่ได้: ' + e.message);
-      }
-    );
-
+  if (!r) {
+    p.textContent = "เลือกหุ่นยนต์ในเมือง";
+    return;
   }
 
+  const h = document.createElement("strong");
 
-  // ตรวจสอบเวลาจากเซิร์ฟเวอร์
+  h.textContent = r.name + " • " + r.type;
 
-  onValue(
-    ref(db, '.info/serverTimeOffset'),
-    s => {
-      offset = s.val() || 0;
-      sync();
-    }
-  );
+  p.append(h);
 
+  const d = document.createElement("p");
 
-  // ตรวจสอบสถานะการเชื่อมต่อ
+  d.textContent =
+    Object.keys(r.interests || {})
+      .map(k => labels[k])
+      .join(", ");
 
-  onValue(
-    ref(db, '.info/connected'),
-    s => {
+  p.append(d);
 
-      connected = s.val() === true;
+  const b = document.createElement("button");
 
-      update();
+  b.textContent =
+    `♥ ${count(selected)}
+    ${likes[selected]?.[uid]
+      ? "ให้หัวใจแล้ว"
+      : "ให้หัวใจ"}`;
 
-      if (!connected) {
-        status('กำลังรอการเชื่อมต่อ');
-      }
+  b.disabled =
+    !ready ||
+    selected === uid ||
+    !!likes[selected]?.[uid];
 
-    }
-  );
+  b.onclick = async () => {
 
-
-  // เข้าสู่ระบบโดยไม่ต้องสมัครสมาชิก
-
-  onAuthStateChanged(auth, u => {
-
-    if (u) {
-      uid = u.uid;
-      sync();
-    }
-
-  });
-
-  if (!auth.currentUser) {
-    await signInAnonymously(auth);
-  }
-
-  setInterval(sync, 1000);
-
-
-  // ==========================
-  // บันทึกหุ่นยนต์ลงฐานข้อมูล
-  // ==========================
-
-  $('form').addEventListener('submit', async e => {
-
-    e.preventDefault();
-
-    if (!ready || !connected || exists || busy) {
-      return;
-    }
-
-    const name = $('name').value.trim();
-
-    if (!name) return;
-
-    busy = true;
-
-    update();
+    b.disabled = true;
 
     try {
 
       await set(
-        ref(db, 'robots/' + day + '/' + uid),
-        {
-          name,
-          type: $('type').value,
-          color: $('color').value,
-          createdAt: serverTimestamp()
-        }
+        path("likes", selected, uid),
+        true
       );
-
-      status('สร้างหุ่นยนต์สำเร็จ');
 
     } catch (e) {
 
-      status('บันทึกไม่สำเร็จ: ' + e.message);
+      $("status").textContent = e.message;
+      profile();
 
-    } finally {
+    }
+  };
 
-      busy = false;
-      update();
+  p.append(b);
+}
+
+// ======================================
+// 6. โหลดข้อมูลจาก Firebase
+// ======================================
+
+async function start() {
+
+  unsubs.forEach(f => f());
+
+  day = today();
+
+  robots = {};
+  likes = {};
+  visits = {};
+
+  positions.clear();
+
+  selected = null;
+  ready = false;
+
+  render();
+
+  for (const kind of ["robots", "likes", "visits"]) {
+
+    unsubs.push(
+      onValue(
+        path(kind),
+
+        s => {
+
+          if (kind === "robots")
+            robots = s.val() || {};
+
+          if (kind === "likes")
+            likes = s.val() || {};
+
+          if (kind === "visits")
+            visits = s.val() || {};
+
+          render();
+
+        },
+
+        e => {
+          $("status").textContent = e.message;
+        }
+      )
+    );
+  }
+
+  await set(path("visits", uid), true);
+
+  ready = true;
+
+  render();
+}
+
+// ======================================
+// 7. สร้างหุ่นยนต์
+// ======================================
+
+$("create").onclick = async () => {
+
+  const name = $("name").value.trim();
+
+  const interests = Object.fromEntries(
+
+    [...$("choices").querySelectorAll("input:checked")]
+      .map(c => [c.value, true])
+
+  );
+
+  if (!name || !Object.keys(interests).length) {
+
+    $("status").textContent =
+      "กรุณาตั้งชื่อและเลือกความสนใจ";
+
+    return;
+  }
+
+  busy = true;
+  render();
+
+  try {
+
+    await set(path("robots", uid), {
+
+      name: name,
+      type: $("type").value,
+      color: $("color").value,
+      interests: interests,
+      createdAt: serverTimestamp()
+
+    });
+
+    $("status").textContent =
+      "สร้างหุ่นยนต์สำเร็จ";
+
+    selected = uid;
+
+  } catch (e) {
+
+    $("status").textContent = e.message;
+
+  } finally {
+
+    busy = false;
+    render();
+
+  }
+};
+
+// ======================================
+// 8. สร้างฉากเมือง
+// ======================================
+
+const canvas = $("city");
+const ctx = canvas.getContext("2d");
+
+function rect(x, y, w, h, r, c) {
+
+  ctx.fillStyle = c;
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, r);
+  ctx.fill();
+
+}
+
+let last = 0;
+
+function draw(t) {
+
+  const dt = Math.min((t - last) / 16.67, 3);
+
+  last = t;
+
+  const g = ctx.createLinearGradient(0, 0, 0, 460);
+
+  g.addColorStop(0, "#211b49");
+  g.addColorStop(1, "#0a2335");
+
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, 1000, 460);
+
+  // อาคาร
+
+  for (let i = 0; i < 20; i++) {
+
+    let h = 65 + i * 47 % 145;
+    let x = i * 51;
+
+    rect(x, 220 - h, 43, h, 2, "#203b59");
+
+    for (let j = 8; j < h - 8; j += 17) {
+
+      for (let k = 8; k < 40; k += 14) {
+
+        rect(
+          x + k,
+          220 - h + j,
+          4, 9, 0,
+          "#55bfd5"
+        );
+
+      }
+    }
+  }
+
+  // พื้นเมือง
+
+  ctx.strokeStyle = "#25485e";
+
+  for (let i = 0; i < 20; i++) {
+
+    ctx.beginPath();
+
+    ctx.moveTo(500 + (i - 10) * 25, 220);
+    ctx.lineTo((i - 10) * 120 + 500, 460);
+
+    ctx.stroke();
+
+  }
+
+  for (let y of [240, 275, 320, 380, 450]) {
+
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(1000, y);
+    ctx.stroke();
+
+  }
+
+// ======================================
+// 9. ระบบเดินอัตโนมัติ
+// ======================================
+
+  for (const id of Object.keys(robots)) {
+
+    if (!positions.has(id)) {
+
+      positions.set(id, {
+
+        x: 45 + Math.random() * 910,
+        y: 310 + Math.random() * 110,
+        vx: (Math.random() - .5) * 1.8,
+        vy: (Math.random() - .5) * .5
+
+      });
+    }
+
+    const p = positions.get(id);
+
+    p.x += p.vx * dt;
+    p.y += p.vy * dt;
+
+    if (p.x < 35 || p.x > 965) {
+
+      p.x = Math.max(35, Math.min(965, p.x));
+      p.vx *= -1;
 
     }
 
-  });
+    if (p.y < 300 || p.y > 425) {
+
+      p.y = Math.max(300, Math.min(425, p.y));
+      p.vy *= -1;
+
+    }
+
+    // เปลี่ยนทิศทางแบบสุ่ม
+
+    if (Math.random() < .004) {
+
+      p.vx = (Math.random() - .5) * 2;
+      p.vy = (Math.random() - .5) * .6;
+
+    }
+  }
+
+// ======================================
+// 10. วาดตัวหุ่นยนต์
+// ======================================
+
+  for (const id of Object.keys(robots).sort(
+    (a, b) => positions.get(a).y - positions.get(b).y
+  )) {
+
+    const r = robots[id];
+    const p = positions.get(id);
+
+    const s = Math.sin(t / 130 + p.x * .04) * 5;
+
+    ctx.save();
+    ctx.translate(p.x, p.y);
+
+    // เงา
+
+    ctx.fillStyle = "#0005";
+    ctx.beginPath();
+
+    ctx.ellipse(0, 0, 23, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // แขนและขา
+
+    ctx.strokeStyle = r.color;
+    ctx.lineWidth = 7;
+    ctx.lineCap = "round";
+
+    for (const d of [-1, 1]) {
+
+      ctx.beginPath();
+      ctx.moveTo(d * 17, -30);
+      ctx.lineTo(d * 25, -14 + d * s);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(d * 9, -12);
+      ctx.lineTo(d * 9 + d * s, 0);
+      ctx.stroke();
+
+    }
+
+    // ลำตัว
+
+    rect(-17, -39, 34, 28, 5, r.color);
+
+    // ศีรษะ
+
+    rect(
+      -23, -70, 46, 28,
+      r.type === "Explorer" ? 14 :
+      r.type === "AI" ? 10 : 3,
+      r.color
+    );
+
+    // ใบหน้าและดวงตา
+
+    rect(-17, -64, 34, 15, 4, "#10192c");
+
+    rect(-11, -60, 7, 7, 2, "white");
+    rect(4, -60, 7, 7, 2, "white");
+
+    // เสาอากาศ
+
+    rect(-2, -80, 4, 10, 1, r.color);
+    rect(-6, -84, 12, 7, 4, r.color);
+
+    // สัญลักษณ์บนตัวหุ่นยนต์
+
+    rect(-12, -34, 24, 15, 3, "#10192c");
+
+    ctx.textAlign = "center";
+    ctx.font = "bold 10px Arial";
+    ctx.fillStyle = "white";
+
+    ctx.fillText({
+
+      AI: "AI",
+      Coder: "</>",
+      Gamer: "+",
+      Designer: "ART",
+      Network: "NET",
+      Explorer: "EXP"
+
+    }[r.type], 0, -23);
+
+    // ชื่อหุ่นยนต์
+
+    ctx.font = "bold 13px Arial";
+    ctx.fillText(r.name, 0, 17);
+
+    // จำนวนหัวใจ
+
+    ctx.fillStyle = "#fda4af";
+    ctx.fillText("♥ " + count(id), 0, -91);
+
+    // กรอบเมื่อเลือกหุ่นยนต์
+
+    if (id === selected) {
+
+      ctx.strokeStyle = "#fff";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(-30, -87, 60, 90);
+
+    }
+
+    ctx.restore();
+  }
+
+  requestAnimationFrame(draw);
+}
+
+requestAnimationFrame(draw);
+
+// ======================================
+// 11. คลิกเลือกหุ่นยนต์
+// ======================================
+
+canvas.onclick = e => {
+
+  const b = canvas.getBoundingClientRect();
+
+  const x =
+    (e.clientX - b.left) * 1000 / b.width;
+
+  const y =
+    (e.clientY - b.top) * 460 / b.height;
+
+  let best = 55;
+
+  for (const [id, p] of positions) {
+
+    if (!robots[id]) continue;
+
+    const d = Math.hypot(
+      x - p.x,
+      y - p.y + 40
+    );
+
+    if (d < best) {
+
+      best = d;
+      selected = id;
+
+    }
+  }
+
+  profile();
+};
+
+// ======================================
+// 12. เข้าสู่ระบบและตรวจสอบวันใหม่
+// ======================================
+
+try {
+
+  uid = (await signInAnonymously(auth)).user.uid;
+
+  onValue(
+    ref(db, ".info/serverTimeOffset"),
+    s => offset = s.val() || 0
+  );
+
+  await start();
+
+  setInterval(() => {
+
+    if (day !== today()) {
+
+      start().catch(e => {
+        $("status").textContent = e.message;
+      });
+
+    }
+
+  }, 10000);
 
 } catch (e) {
 
-  status('เชื่อมต่อไม่ได้: ' + e.message);
+  $("status").textContent =
+    "เชื่อมต่อไม่ได้: " + e.message;
 
 }
 
@@ -697,3 +828,4 @@ try {
 
 </body>
 </html>
+
