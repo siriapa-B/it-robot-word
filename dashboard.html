@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>IT ROBOT Dashboard</title>
+
+<style>
+
+body {
+  font: 16px Arial, sans-serif;
+  background: #10182b;
+  color: white;
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 16px;
+}
+
+section {
+  background: #20304b;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 15px 0;
+}
+
+button, input {
+  font: inherit;
+  padding: 10px;
+  margin: 5px;
+}
+
+a {
+  color: cyan;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>INFORMATION TECHNOLOGY DASHBOARD</h1>
+
+<p>IT ROBOT WORLD @ RYTC</p>
+
+<a href="index.html">กลับหน้าเมือง</a>
+
+<section>
+
+  <input type="date" id="date">
+
+  <button id="load">
+    ดูสถิติ
+  </button>
+
+  <button id="csv" disabled>
+    ส่งออก CSV
+  </button>
+
+  <p id="status"></p>
+
+</section>
+
+<section id="results"></section>
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+
+import { getAuth, signInAnonymously }
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+import { getDatabase, ref, get }
+from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
+
+// เชื่อมต่อ Firebase
+
+const app = initializeApp({
+
+  apiKey: "AIzaSyApJ61sy62NlQb-Ffga5eY0lN_P68lzUig",
+
+  authDomain: "it-robot-world-rytc.firebaseapp.com",
+
+  databaseURL: "https://it-robot-world-rytc-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+  projectId: "it-robot-world-rytc",
+
+  appId: "1:764898190549:web:b3b4cff76e46929a4e2e5c"
+
+});
+
+const db = getDatabase(app);
+
+const $ = id => document.getElementById(id);
+
+const labels = {
+
+  ai: "AI ปัญญาประดิษฐ์",
+  code: "เขียนโปรแกรม",
+  game: "เกมและ E-Sport",
+  iot: "หุ่นยนต์และ IoT",
+  design: "กราฟิก",
+  network: "เครือข่าย",
+  web: "สร้างเว็บไซต์",
+  apply: "สนใจสมัครเรียน IT"
+
+};
+
+let rows = [];
+
+$("date").value =
+  new Date(Date.now() + 25200000)
+    .toISOString()
+    .slice(0, 10);
+
+// โหลดข้อมูลตามวันที่
+
+async function load() {
+
+  $("csv").disabled = true;
+
+  try {
+
+    await signInAnonymously(getAuth(app));
+
+    const day = String(
+
+      Date.parse(
+        $("date").value + "T00:00:00Z"
+      ) / 86400000
+
+    );
+
+    const [r, l, v] = await Promise.all(
+
+      ["robots", "likes", "visits"].map(
+
+        async k => (
+          await get(ref(db, k + "/" + day))
+        ).val() || {}
+
+      )
+    );
+
+    const bots = Object.values(r);
+
+    rows = [
+
+      ["วันที่", $("date").value],
+
+      ["ผู้เข้าชม (บัญชี)", Object.keys(v).length],
+
+      ["หุ่นยนต์", bots.length],
+
+      ["หัวใจ",
+        Object.values(l).reduce(
+          (a, b) => a + Object.keys(b).length,
+          0
+        )
+      ],
+
+      ...Object.entries(labels).map(
+        ([k, n]) => [
+          n,
+          bots.filter(b => b.interests?.[k]).length
+        ]
+      )
+
+    ];
+
+    $("results").replaceChildren();
+
+    for (const row of rows) {
+
+      const p = document.createElement("p");
+
+      p.textContent = row.join(": ");
+
+      $("results").append(p);
+
+    }
+
+    $("csv").disabled = false;
+
+    $("status").textContent =
+      "โหลดข้อมูลสำเร็จ";
+
+  } catch (e) {
+
+    $("status").textContent = e.message;
+
+  }
+}
+
+$("load").onclick = load;
+
+// ส่งออกไฟล์ CSV
+
+$("csv").onclick = () => {
+
+  const a = document.createElement("a");
+
+  a.href = URL.createObjectURL(
+
+    new Blob(
+
+      [
+        "\ufeff" +
+        rows.map(r => r.join(",")).join("\r\n")
+      ],
+
+      { type: "text/csv;charset=utf-8" }
+
+    )
+  );
+
+  a.download =
+    "robot-stats-" + $("date").value + ".csv";
+
+  a.click();
+
+  setTimeout(
+    () => URL.revokeObjectURL(a.href),
+    1000
+  );
+
+};
+
+load();
+
+</script>
+
+</body>
+</html>
