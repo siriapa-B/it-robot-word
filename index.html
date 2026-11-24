@@ -1,0 +1,560 @@
+ 
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT ROBOT WORLD @ RYTC</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #080d20;
+  color: white;
+}
+
+header {
+  text-align: center;
+  padding: 25px 10px;
+  background: linear-gradient(120deg, #101c40, #28134d);
+  border-bottom: 1px solid #22d3ee;
+}
+
+h1 {
+  margin: 10px 0;
+  color: #67e8f9;
+  text-shadow: 0 0 20px #0891b2;
+}
+
+header p { color: #bac8e8; }
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 15px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 290px;
+  gap: 15px;
+}
+
+.panel {
+  background: #121c35;
+  border: 1px solid #304569;
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.city {
+  position: relative;
+  overflow: hidden;
+  height: 510px;
+  border-radius: 16px;
+  border: 1px solid #38bdf8;
+  background: #0c1731;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.counter {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #091426dd;
+  border: 1px solid #22d3ee;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #67e8f9;
+}
+
+h2 { color: #67e8f9; font-size: 19px; }
+
+label {
+  display: block;
+  margin: 15px 0 7px;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  background: #080f25;
+  border: 1px solid #41567b;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid #40577b;
+  border-radius: 10px;
+  padding: 12px;
+  background: #203050;
+  color: white;
+}
+
+button:hover { border-color: #67e8f9; }
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.type { font-size: 25px; flex: 1; }
+
+.active {
+  outline: 2px solid #67e8f9;
+}
+
+.color {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.preview {
+  text-align: center;
+  font-size: 65px;
+  padding: 15px;
+}
+
+.launch {
+  width: 100%;
+  margin-top: 20px;
+  background: linear-gradient(90deg, #0284c7, #7c3aed);
+  font-weight: bold;
+  font-size: 15px;
+}
+
+#message {
+  font-size: 13px;
+  color: #86efac;
+  text-align: center;
+}
+
+#info {
+  margin-top: 12px;
+  min-height: 85px;
+}
+
+#heart { background: #9d174d; }
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #94a3b8;
+  line-height: 1.8;
+  font-size: 13px;
+}
+
+@media(max-width: 760px) {
+  .layout { grid-template-columns: 1fr; }
+  .city { height: 390px; }
+  h1 { font-size: 25px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <small>RAYONG TECHNICAL COLLEGE</small>
+  <h1>🤖 IT ROBOT WORLD</h1>
+  <p>สร้างตัวตนของคุณในเมืองแห่งอนาคต</p>
+</header>
+
+<div class="container">
+<div class="layout">
+
+<section>
+  <div class="city">
+    <canvas id="world"></canvas>
+    <div class="counter">
+      ● หุ่นยนต์ <span id="count">0</span> ตัว
+    </div>
+  </div>
+
+  <div class="panel" id="info">
+    <div id="detail">แตะหุ่นยนต์ในเมืองเพื่อทำความรู้จัก</div>
+    <button id="heart" hidden>❤️ ส่งหัวใจ</button>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>สร้างหุ่นยนต์ของคุณ</h2>
+
+  <div class="preview" id="preview">🤖</div>
+
+  <label>เลือกรูปแบบหุ่นยนต์</label>
+  <div class="choices" id="types"></div>
+
+  <label>เลือกสีพลังงาน</label>
+  <div class="choices" id="colors"></div>
+
+  <label for="robotName">ชื่อหุ่นยนต์</label>
+  <input id="robotName" maxlength="18"
+         placeholder="ตั้งชื่อหุ่นยนต์">
+
+  <label for="interest">สิ่งที่คุณสนใจ</label>
+  <select id="interest">
+    <option>AI และปัญญาประดิษฐ์</option>
+    <option>การเขียนโปรแกรม</option>
+    <option>การสร้างเกม</option>
+    <option>กราฟิกและสื่อดิจิทัล</option>
+    <option>การพัฒนาเว็บไซต์</option>
+    <option>หุ่นยนต์และ IoT</option>
+    <option>ระบบเครือข่าย</option>
+    <option>อยากลองเรียนรู้</option>
+  </select>
+
+  <button class="launch" id="launch">
+    🚀 ปล่อยหุ่นยนต์เข้าสู่เมือง
+  </button>
+
+  <p id="message"></p>
+</section>
+
+</div>
+</div>
+
+<footer>
+  <strong>แผนกวิชาเทคโนโลยีสารสนเทศ</strong><br>
+  วิทยาลัยเทคนิคระยอง<br>
+  ปวช. | ปวส. | ปริญญาตรี ทลบ.<br>
+  IT ROBOT WORLD V1.0 — โหมดจำลอง
+</footer>
+
+<script>
+const canvas = document.getElementById("world");
+const ctx = canvas.getContext("2d");
+const $ = id => document.getElementById(id);
+
+const types = ["🤖", "👾", "🛸", "🦾"];
+const colors = [
+  "#22d3ee", "#a78bfa", "#f472b6",
+  "#4ade80", "#facc15", "#fb7185"
+];
+
+let selectedType = types[0];
+let selectedColor = colors[0];
+let selectedRobot = null;
+
+const robots = [
+  ["AI Bot", "🤖", "#22d3ee", "AI"],
+  ["Pixel", "👾", "#a78bfa", "สร้างเกม"],
+  ["Nova", "🛸", "#f472b6", "กราฟิก"],
+  ["Cyber", "🤖", "#4ade80", "เครือข่าย"],
+  ["Code", "🦾", "#facc15", "เขียนโปรแกรม"]
+].map(r => createRobot(...r));
+
+function createRobot(name, type, color, interest) {
+  return {
+    name, type, color, interest,
+    x: 0.1 + Math.random() * 0.8,
+    y: 0.52 + Math.random() * 0.28,
+    angle: Math.random() * Math.PI * 2,
+    speed: 0.00005 + Math.random() * 0.00005,
+    hearts: 0
+  };
+}
+
+function updateChoices() {
+  $("types").replaceChildren();
+  $("colors").replaceChildren();
+
+  types.forEach(type => {
+    const button = document.createElement("button");
+    button.textContent = type;
+    button.className = "type" +
+      (type === selectedType ? " active" : "");
+
+    button.onclick = () => {
+      selectedType = type;
+      updateChoices();
+    };
+
+    $("types").appendChild(button);
+  });
+
+  colors.forEach(color => {
+    const button = document.createElement("button");
+    button.className = "color" +
+      (color === selectedColor ? " active" : "");
+
+    button.style.background = color;
+    button.setAttribute("aria-label", color);
+
+    button.onclick = () => {
+      selectedColor = color;
+      updateChoices();
+    };
+
+    $("colors").appendChild(button);
+  });
+
+  $("preview").textContent = selectedType;
+  $("preview").style.filter =
+    `drop-shadow(0 0 15px ${selectedColor})`;
+}
+
+updateChoices();
+
+function building(x, y, w, h, color) {
+  ctx.fillStyle = "#182746";
+  ctx.fillRect(x, y, w, h);
+
+  ctx.strokeStyle = color;
+  ctx.strokeRect(x, y, w, h);
+
+  ctx.fillStyle = "#30476b";
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + 15, y - 15);
+  ctx.lineTo(x + w + 15, y - 15);
+  ctx.lineTo(x + w, y);
+  ctx.closePath();
+  ctx.fill();
+
+  for (let row = 12; row < h - 8; row += 18) {
+    for (let col = 8; col < w - 8; col += 16) {
+      ctx.fillStyle = color;
+      ctx.globalAlpha = 0.65;
+      ctx.fillRect(x + col, y + row, 7, 8);
+    }
+  }
+
+  ctx.globalAlpha = 1;
+}
+
+let lastTime = 0;
+
+function draw(time) {
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  if (canvas.width !== Math.round(w * dpr) ||
+      canvas.height !== Math.round(h * dpr)) {
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+  }
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const dt = Math.min(time - lastTime, 40);
+  lastTime = time;
+
+  // ท้องฟ้าเมืองแห่งอนาคต
+  const sky = ctx.createLinearGradient(0, 0, 0, h);
+  sky.addColorStop(0, "#080b24");
+  sky.addColorStop(0.5, "#302052");
+  sky.addColorStop(1, "#0a263d");
+
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, w, h);
+
+  // ดวงดาว
+  for (let i = 0; i < 60; i++) {
+    ctx.fillStyle = "#b7e5ff";
+    ctx.globalAlpha = 0.4 + 0.3 * Math.sin(time / 900 + i);
+    ctx.fillRect((i * 73) % w, (i * 37) % (h * 0.3), 2, 2);
+  }
+
+  ctx.globalAlpha = 1;
+
+  // อาคารเมือง
+  for (let i = 0; i < 10; i++) {
+    const bh = 45 + (i * 37) % 90;
+    building(
+      i * w / 10,
+      h * 0.4 - bh,
+      w / 12,
+      bh,
+      i % 2 ? "#22d3ee" : "#a78bfa"
+    );
+  }
+
+  // พื้นเมือง
+  ctx.fillStyle = "#10283e";
+  ctx.fillRect(0, h * 0.4, w, h * 0.6);
+
+  // ถนนนีออน
+  ctx.strokeStyle = "#23576d";
+  ctx.lineWidth = 1;
+
+  for (let i = -10; i <= 10; i++) {
+    ctx.beginPath();
+    ctx.moveTo(w / 2 + i * 12, h * 0.4);
+    ctx.lineTo(w / 2 + i * w / 7, h);
+    ctx.stroke();
+  }
+
+  for (let i = 0; i < 10; i++) {
+    const y = h * 0.4 + h * 0.6 * (i / 9) ** 1.7;
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(w, y);
+    ctx.stroke();
+  }
+
+  // อาคารแผนก IT
+  const bw = Math.min(w * 0.4, 190);
+  const bx = (w - bw) / 2;
+  const by = h * 0.18;
+
+  ctx.shadowColor = "#22d3ee";
+  ctx.shadowBlur = 15;
+  building(bx, by, bw, h * 0.22, "#22d3ee");
+  ctx.shadowBlur = 0;
+
+  ctx.fillStyle = "#09172c";
+  ctx.fillRect(bx + 5, by + 10, bw - 10, 42);
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#67e8f9";
+  ctx.font = "bold 18px Arial";
+  ctx.fillText("IT • RYTC", w / 2, by + 28);
+
+  ctx.font = "10px Arial";
+  ctx.fillText("TECHNOLOGY CENTER", w / 2, by + 43);
+
+  // การเคลื่อนไหวของหุ่นยนต์
+  robots.forEach(r => {
+    r.angle += Math.sin(time / 1800 + r.speed * 10000) * 0.006;
+
+    r.x += Math.cos(r.angle) * r.speed * dt;
+    r.y += Math.sin(r.angle) * r.speed * dt;
+
+    if (r.x < 0.08 || r.x > 0.92) {
+      r.angle = Math.PI - r.angle;
+      r.x = Math.max(0.08, Math.min(0.92, r.x));
+    }
+
+    if (r.y < 0.52 || r.y > 0.88) {
+      r.angle = -r.angle;
+      r.y = Math.max(0.52, Math.min(0.88, r.y));
+    }
+
+    r.px = r.x * w;
+    r.py = r.y * h;
+  });
+
+  // แสดงตัวละคร
+  [...robots].sort((a, b) => a.py - b.py).forEach(r => {
+    const x = r.px;
+    const y = r.py;
+    const bob = Math.sin(time / 180 + r.angle) * 3;
+
+    ctx.shadowColor = r.color;
+    ctx.shadowBlur = 14;
+    ctx.fillStyle = r.color + "55";
+
+    ctx.beginPath();
+    ctx.ellipse(x, y + 10, 19, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.font = "34px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(r.type, x, y + bob);
+
+    ctx.shadowBlur = 0;
+
+    ctx.font = "12px Arial";
+    const label = r.name + (r.hearts ? " ♥" + r.hearts : "");
+    const tw = ctx.measureText(label).width + 14;
+
+    ctx.fillStyle = "#071126dd";
+    ctx.fillRect(x - tw / 2, y - 49, tw, 19);
+
+    ctx.fillStyle = r.color;
+    ctx.fillText(label, x, y - 35);
+  });
+
+  requestAnimationFrame(draw);
+}
+
+$("count").textContent = robots.length;
+requestAnimationFrame(draw);
+
+// ปล่อยหุ่นยนต์เข้าสู่เมือง
+$("launch").onclick = () => {
+  const name = $("robotName").value.trim();
+
+  if (!name) {
+    $("message").textContent = "กรุณาตั้งชื่อหุ่นยนต์ก่อน";
+    return;
+  }
+
+  if (robots.length >= 40) {
+    $("message").textContent = "เมืองจำลองเต็มแล้ว";
+    return;
+  }
+
+  robots.push(createRobot(
+    name,
+    selectedType,
+    selectedColor,
+    $("interest").value
+  ));
+
+  $("count").textContent = robots.length;
+  $("message").textContent =
+    "ยินดีต้อนรับ " + name + " เข้าสู่เมือง!";
+  $("robotName").value = "";
+};
+
+// กดดูข้อมูลหุ่นยนต์
+canvas.addEventListener("click", event => {
+  const rect = canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  selectedRobot = [...robots]
+    .sort((a, b) => b.py - a.py)
+    .find(r =>
+      Math.abs(r.px - x) < 25 &&
+      y > r.py - 50 &&
+      y < r.py + 15
+    );
+
+  if (selectedRobot) {
+    $("detail").textContent =
+      selectedRobot.name + " | สนใจ: " +
+      selectedRobot.interest;
+
+    $("heart").hidden = false;
+    $("heart").textContent =
+      "❤️ ส่งหัวใจ (" + selectedRobot.hearts + ")";
+  } else {
+    $("detail").textContent =
+      "แตะหุ่นยนต์ในเมืองเพื่อทำความรู้จัก";
+    $("heart").hidden = true;
+  }
+});
+
+// ส่งหัวใจ
+$("heart").onclick = () => {
+  if (selectedRobot) {
+    selectedRobot.hearts++;
+    $("heart").textContent =
+      "❤️ ส่งหัวใจ (" + selectedRobot.hearts + ")";
+  }
+};
+</script>
+
+</body>
+</html>
