@@ -3,83 +3,592 @@
 <html lang="th">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1">
 
-<title>IT ROBOT Dashboard</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>IT SMART CAMPUS DASHBOARD V6.0</title>
 
 <style>
 
+/* ============================
+   1. รูปแบบเว็บไซต์
+============================ */
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font: 16px Arial, sans-serif;
-  background: #10182b;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #edf7f3;
+  color: #183b40;
+}
+
+header {
+  background: linear-gradient(
+    120deg,
+    #075b55,
+    #147f91
+  );
+
   color: white;
-  max-width: 850px;
-  margin: 30px auto;
-  padding: 16px;
+  padding: 32px 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 10px 0;
+  font-size: clamp(24px,4vw,40px);
+}
+
+header p {
+  margin: 8px 0;
+}
+
+header small {
+  color: #c6f4e5;
+}
+
+main {
+  max-width: 1250px;
+  margin: auto;
+  padding: 20px;
 }
 
 section {
-  background: #20304b;
+  background: white;
+  border: 1px solid #d2e8e1;
+  border-radius: 18px;
   padding: 20px;
-  border-radius: 12px;
-  margin: 15px 0;
+  margin-bottom: 18px;
+  box-shadow: 0 5px 20px #155b5510;
 }
 
-button, input {
+h2 {
+  margin-top: 0;
+  font-size: 21px;
+}
+
+button,input {
   font: inherit;
-  padding: 10px;
-  margin: 5px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #b8d6d1;
+}
+
+button {
+  background: #087e70;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #075b55;
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: default;
 }
 
 a {
-  color: cyan;
+  text-decoration: none;
+}
+
+small {
+  color: #52716e;
+}
+
+/* ============================
+   2. ปุ่มและตัวเลือกวันที่
+============================ */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.csv-button {
+  background: #2563eb;
+}
+
+.csv-button:hover {
+  background: #1d4ed8;
+}
+
+.home-button {
+  display: inline-block;
+  background: #e2f2ec;
+  color: #075b55;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: bold;
+}
+
+#status {
+  font-size: 14px;
+  color: #087e70;
+  overflow-wrap: anywhere;
+}
+
+#status.error {
+  color: #b91c1c;
+}
+
+/* ============================
+   3. กล่องสรุปสถิติ
+============================ */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.metric {
+  background: white;
+  border: 1px solid #d2e8e1;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 5px 20px #155b5510;
+}
+
+.metric-icon {
+  font-size: 28px;
+}
+
+.metric-label {
+  font-size: 14px;
+  color: #52716e;
+  margin-top: 10px;
+}
+
+.metric-value {
+  font-size: 38px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.green {
+  color: #087e70;
+}
+
+.blue {
+  color: #2563eb;
+}
+
+.pink {
+  color: #db2777;
+}
+
+.purple {
+  color: #7c3aed;
+}
+
+/* ============================
+   4. จัดวาง Dashboard
+============================ */
+
+.layout {
+  display: grid;
+  grid-template-columns:
+    minmax(0,1.6fr) minmax(0,1fr);
+  gap: 18px;
+}
+
+/* ============================
+   5. กราฟความสนใจ
+============================ */
+
+.interest-row {
+  margin-bottom: 18px;
+}
+
+.interest-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  margin-bottom: 7px;
+}
+
+.interest-number {
+  font-weight: bold;
+  color: #075b55;
+  white-space: nowrap;
+}
+
+.bar {
+  width: 100%;
+  height: 10px;
+  background: #e4efeb;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #087e70,
+    #34d399
+  );
+  border-radius: 20px;
+  transition: width .5s ease;
+}
+
+.bar-fill.admission {
+  background: #7c3aed;
+}
+
+/* ============================
+   6. หุ่นยนต์ยอดนิยม
+============================ */
+
+.rank-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #e4efeb;
+}
+
+.rank-number {
+  min-width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: #edf7f3;
+  color: #087e70;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.rank-info {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.rank-info small {
+  display: block;
+  margin-top: 5px;
+}
+
+.rank-heart {
+  color: #db2777;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* ============================
+   7. ส่วนท้ายเว็บไซต์
+============================ */
+
+footer {
+  padding: 25px;
+  text-align: center;
+  color: #52716e;
+  font-size: 14px;
+}
+
+/* ============================
+   8. รองรับโทรศัพท์มือถือ
+============================ */
+
+@media(max-width:850px) {
+
+  .metrics {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media(max-width:480px) {
+
+  main {
+    padding: 10px;
+  }
+
+  section {
+    padding: 15px;
+  }
+
+  .metric {
+    padding: 15px;
+  }
+
+  .metric-value {
+    font-size: 30px;
+  }
+
+  .toolbar > * {
+    flex: 1 1 130px;
+  }
+
 }
 
 </style>
+
 </head>
 
 <body>
 
-<h1>INFORMATION TECHNOLOGY DASHBOARD</h1>
+<!-- ============================
+     9. ส่วนหัวเว็บไซต์
+============================ -->
 
-<p>IT ROBOT WORLD @ RYTC</p>
+<header>
 
-<a href="index.html">กลับหน้าเมือง</a>
+  <small>
+    INFORMATION TECHNOLOGY • RYTC
+  </small>
+
+  <h1>IT SMART CAMPUS DASHBOARD</h1>
+
+  <p>ระบบรายงานสถิติกิจกรรม V6.0</p>
+
+  <small>
+    แผนกวิชาเทคโนโลยีสารสนเทศ
+    วิทยาลัยเทคนิคระยอง
+  </small>
+
+</header>
+
+<main>
+
+<!-- ============================
+     10. เลือกวันที่และดาวน์โหลด
+============================ -->
 
 <section>
 
-  <input type="date" id="date">
+  <h2>📅 เลือกวันที่แสดงข้อมูล</h2>
 
-  <button id="load">
-    ดูสถิติ
-  </button>
+  <div class="toolbar">
 
-  <button id="csv" disabled>
-    ส่งออก CSV
-  </button>
+    <input
+      type="date"
+      id="date"
+      aria-label="วันที่แสดงข้อมูล">
 
-  <p id="status"></p>
+    <button id="load">
+      🔄 ดูสถิติ / Refresh
+    </button>
+
+    <button
+      id="csv"
+      class="csv-button"
+      disabled>
+
+      📥 Export CSV
+
+    </button>
+
+    <a
+      class="home-button"
+      href="index.html">
+
+      ← กลับหน้าเมือง
+
+    </a>
+
+  </div>
+
+  <p id="status" role="status">
+    กำลังเชื่อมต่อ Firebase...
+  </p>
+
+  <small id="updated"></small>
 
 </section>
 
-<section id="results"></section>
+<!-- ============================
+     11. กล่องสรุปข้อมูล
+============================ -->
+
+<div class="metrics">
+
+  <div class="metric">
+
+    <div class="metric-icon">👥</div>
+
+    <div class="metric-label">
+      ผู้เข้าชม (บัญชี)
+    </div>
+
+    <div
+      id="visitCount"
+      class="metric-value green">
+
+      —
+
+    </div>
+
+  </div>
+
+  <div class="metric">
+
+    <div class="metric-icon">🤖</div>
+
+    <div class="metric-label">
+      หุ่นยนต์ทั้งหมด
+    </div>
+
+    <div
+      id="robotCount"
+      class="metric-value blue">
+
+      —
+
+    </div>
+
+  </div>
+
+  <div class="metric">
+
+    <div class="metric-icon">❤️</div>
+
+    <div class="metric-label">
+      หัวใจทั้งหมด
+    </div>
+
+    <div
+      id="heartCount"
+      class="metric-value pink">
+
+      —
+
+    </div>
+
+  </div>
+
+  <div class="metric">
+
+    <div class="metric-icon">🎓</div>
+
+    <div class="metric-label">
+      สนใจสมัครเรียน IT
+    </div>
+
+    <div
+      id="applyCount"
+      class="metric-value purple">
+
+      —
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ============================
+     12. กราฟและอันดับ
+============================ -->
+
+<div class="layout">
+
+  <section>
+
+    <h2>📊 สถิติความสนใจด้าน IT</h2>
+
+    <p>
+      <small>
+        ผู้เล่นสามารถเลือกได้หลายความสนใจ
+        เปอร์เซ็นต์คำนวณจากจำนวนหุ่นยนต์ทั้งหมด
+      </small>
+    </p>
+
+    <div id="interestStats">
+
+      กำลังโหลดข้อมูล...
+
+    </div>
+
+  </section>
+
+  <div>
+
+    <section>
+
+      <h2>🏆 หุ่นยนต์ยอดนิยม TOP 10</h2>
+
+      <div id="ranking">
+
+        กำลังโหลดข้อมูล...
+
+      </div>
+
+    </section>
+
+    <section>
+
+      <h2>📋 สรุปผลกิจกรรม</h2>
+
+      <p id="summary">
+
+        กำลังโหลดข้อมูล...
+
+      </p>
+
+    </section>
+
+  </div>
+
+</div>
+
+</main>
+
+<footer>
+
+  IT SMART CAMPUS DASHBOARD V6.0
+
+  <p>
+    แผนกวิชาเทคโนโลยีสารสนเทศ
+    วิทยาลัยเทคนิคระยอง
+  </p>
+
+</footer>
 
 <script type="module">
 
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+// ============================
+// 13. เชื่อมต่อ Firebase
+// ============================
 
-import { getAuth, signInAnonymously }
-from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import {
+  initializeApp
+}
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
-import { getDatabase, ref, get }
-from "https://www.gstatic.com/firebasejs/13.4.0/firebase-database.js";
+import {
+  getAuth,
+  signInAnonymously
+}
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-// เชื่อมต่อ Firebase
+import {
+  getDatabase,
+  ref,
+  get
+}
+from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
-const app = initializeApp({
+const firebaseConfig = {
 
   apiKey: "AIzaSyApJ61sy62NlQb-Ffga5eY0lN_P68lzUig",
 
@@ -89,150 +598,679 @@ const app = initializeApp({
 
   projectId: "it-robot-world-rytc",
 
+  storageBucket: "it-robot-world-rytc.firebasestorage.app",
+
+  messagingSenderId: "764898190549",
+
   appId: "1:764898190549:web:b3b4cff76e46929a4e2e5c"
 
-});
+};
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
 
 const db = getDatabase(app);
 
 const $ = id => document.getElementById(id);
 
+// ============================
+// 14. ความสนใจทั้ง 16 รายการ
+// ============================
+
 const labels = {
 
   ai: "AI ปัญญาประดิษฐ์",
+
   code: "เขียนโปรแกรม",
+
   game: "เกมและ E-Sport",
+
   iot: "หุ่นยนต์และ IoT",
+
   design: "กราฟิก",
+
   network: "เครือข่าย",
+
   web: "สร้างเว็บไซต์",
-  apply: "สนใจสมัครเรียน IT"
+
+  apply: "สนใจสมัครเรียน IT",
+
+  security: "Cyber Security",
+
+  mobile: "พัฒนาแอปพลิเคชัน",
+
+  database: "ฐานข้อมูล",
+
+  cloud: "Cloud Computing",
+
+  data: "Data Science",
+
+  hardware: "ประกอบและซ่อมคอมพิวเตอร์",
+
+  xr: "3D และ AR/VR",
+
+  ux: "UX/UI Design"
 
 };
 
-let rows = [];
+// ============================
+// 15. ตัวแปรสำหรับรายงาน
+// ============================
 
-$("date").value =
-  new Date(Date.now() + 25200000)
-    .toISOString()
-    .slice(0, 10);
+let csvRows = [];
 
-// โหลดข้อมูลตามวันที่
+let reportDate = "";
 
-async function load() {
+let loading = false;
+
+// กำหนดวันที่ปัจจุบันตามเวลาไทย
+
+const today = new Date(
+
+  Date.now() + 25200000
+
+).toISOString().slice(0,10);
+
+$("date").value = today;
+
+$("date").max = today;
+
+// ============================
+// 16. แสดงตัวเลข
+// ============================
+
+function formatNumber(value) {
+
+  return Number(value)
+
+    .toLocaleString("th-TH");
+
+}
+
+// ============================
+// 17. อ่านข้อมูลจาก Firebase
+// ============================
+
+async function readData(kind,day) {
+
+  const snapshot = await get(
+
+    ref(db,kind+"/"+day)
+
+  );
+
+  return snapshot.val() || {};
+
+}
+
+// ============================
+// 18. โหลดข้อมูลสถิติ
+// ============================
+
+async function loadDashboard() {
+
+  if(loading) return;
+
+  const selectedDate = $("date").value;
+
+  if(!selectedDate || selectedDate > today) {
+
+    $("status").textContent =
+      "กรุณาเลือกวันที่ที่ถูกต้อง";
+
+    return;
+
+  }
+
+  loading = true;
+
+  csvRows = [];
+
+  reportDate = "";
 
   $("csv").disabled = true;
 
+  $("load").disabled = true;
+
+  $("date").disabled = true;
+
+  $("status").classList.remove("error");
+
+  $("status").textContent =
+    "กำลังโหลดข้อมูล...";
+
+  $("updated").textContent = "";
+
+  for(const id of [
+
+    "visitCount",
+    "robotCount",
+    "heartCount",
+    "applyCount"
+
+  ]) {
+
+    $(id).textContent = "—";
+
+  }
+
+  $("interestStats").textContent =
+    "กำลังโหลดข้อมูล...";
+
+  $("ranking").textContent =
+    "กำลังโหลดข้อมูล...";
+
+  $("summary").textContent = "";
+
   try {
 
-    await signInAnonymously(getAuth(app));
+    // เข้าสู่ระบบแบบ Anonymous
+
+    if(!auth.currentUser) {
+
+      await signInAnonymously(auth);
+
+    }
+
+    // แปลงวันที่เป็นรหัสวันที่ของเกม
 
     const day = String(
 
-      Date.parse(
-        $("date").value + "T00:00:00Z"
-      ) / 86400000
+      Math.floor(
+
+        Date.parse(
+          selectedDate+"T00:00:00Z"
+        ) / 86400000
+
+      )
 
     );
 
-    const [r, l, v] = await Promise.all(
+    // โหลดข้อมูลทั้ง 3 ส่วน
 
-      ["robots", "likes", "visits"].map(
+    const [robots,likes,visits] =
 
-        async k => (
-          await get(ref(db, k + "/" + day))
-        ).val() || {}
+      await Promise.all([
 
-      )
+        readData("robots",day),
+
+        readData("likes",day),
+
+        readData("visits",day)
+
+      ]);
+
+    const ids = Object.keys(robots);
+
+    const robotCount = ids.length;
+
+    const visitCount =
+      Object.keys(visits).length;
+
+    // นับหัวใจของหุ่นยนต์ที่มีอยู่
+
+    const getHearts = id =>
+
+      Object.keys(likes[id] || {}).length;
+
+    const heartCount = ids.reduce(
+
+      (sum,id) => sum+getHearts(id),
+
+      0
+
     );
 
-    const bots = Object.values(r);
+    // นับผู้ที่เลือกสนใจสมัครเรียน
 
-    rows = [
+    const applyCount = ids.filter(
 
-      ["วันที่", $("date").value],
+      id => robots[id].interests?.apply === true
 
-      ["ผู้เข้าชม (บัญชี)", Object.keys(v).length],
+    ).length;
 
-      ["หุ่นยนต์", bots.length],
+    // แสดงตัวเลขสรุป
 
-      ["หัวใจ",
-        Object.values(l).reduce(
-          (a, b) => a + Object.keys(b).length,
-          0
-        )
-      ],
+    $("visitCount").textContent =
+      formatNumber(visitCount);
 
-      ...Object.entries(labels).map(
-        ([k, n]) => [
-          n,
-          bots.filter(b => b.interests?.[k]).length
-        ]
-      )
+    $("robotCount").textContent =
+      formatNumber(robotCount);
+
+    $("heartCount").textContent =
+      formatNumber(heartCount);
+
+    $("applyCount").textContent =
+      formatNumber(applyCount);
+
+    // เตรียมข้อมูลสำหรับ CSV
+
+    csvRows = [
+
+      ["วันที่",selectedDate],
+
+      ["ผู้เข้าชม (บัญชี)",visitCount],
+
+      ["หุ่นยนต์",robotCount],
+
+      ["หัวใจทั้งหมด",heartCount],
+
+      ["สนใจสมัครเรียน IT",applyCount],
+
+      [],
+
+      ["ความสนใจ","จำนวนบัญชี","เปอร์เซ็นต์"]
 
     ];
 
-    $("results").replaceChildren();
+    // ==========================
+    // 19. แสดงกราฟความสนใจ
+    // ==========================
 
-    for (const row of rows) {
+    $("interestStats").replaceChildren();
 
-      const p = document.createElement("p");
+    const interestResults = [];
 
-      p.textContent = row.join(": ");
+    for(const [key,label] of
 
-      $("results").append(p);
+      Object.entries(labels)) {
+
+      const total = ids.filter(
+
+        id => robots[id].interests?.[key] === true
+
+      ).length;
+
+      const percent = robotCount
+
+        ? total / robotCount * 100
+
+        : 0;
+
+      interestResults.push({
+
+        label,
+        total,
+        percent
+
+      });
+
+      const row =
+        document.createElement("div");
+
+      row.className = "interest-row";
+
+      const heading =
+        document.createElement("div");
+
+      heading.className = "interest-heading";
+
+      const name =
+        document.createElement("span");
+
+      name.textContent = label;
+
+      const number =
+        document.createElement("span");
+
+      number.className = "interest-number";
+
+      number.textContent =
+
+        formatNumber(total) +
+
+        " (" + percent.toFixed(1) + "%)";
+
+      heading.append(name,number);
+
+      const bar =
+        document.createElement("div");
+
+      bar.className = "bar";
+
+      const fill =
+        document.createElement("div");
+
+      fill.className = "bar-fill";
+
+      fill.style.width = percent+"%";
+
+      if(key === "apply") {
+
+        fill.classList.add("admission");
+
+      }
+
+      bar.append(fill);
+
+      row.append(heading,bar);
+
+      $("interestStats").append(row);
+
+      csvRows.push([
+
+        label,
+
+        total,
+
+        percent.toFixed(1)
+
+      ]);
 
     }
+
+    // ==========================
+    // 20. จัดอันดับหุ่นยนต์
+    // ==========================
+
+    $("ranking").replaceChildren();
+
+    const ranked = [...ids]
+
+      .sort(
+
+        (a,b) => getHearts(b)-getHearts(a)
+
+      )
+
+      .slice(0,10);
+
+    csvRows.push([]);
+
+    csvRows.push([
+
+      "อันดับ",
+      "ชื่อหุ่นยนต์",
+      "ประเภท",
+      "จำนวนหัวใจ"
+
+    ]);
+
+    if(!ranked.length) {
+
+      $("ranking").textContent =
+
+        "ยังไม่มีหุ่นยนต์ในวันที่เลือก";
+
+    }
+
+    ranked.forEach((id,index) => {
+
+      const robot = robots[id];
+
+      const row =
+        document.createElement("div");
+
+      row.className = "rank-row";
+
+      const rank =
+        document.createElement("div");
+
+      rank.className = "rank-number";
+
+      rank.textContent = index+1;
+
+      const info =
+        document.createElement("div");
+
+      info.className = "rank-info";
+
+      const name =
+        document.createElement("strong");
+
+      name.textContent = robot.name;
+
+      const type =
+        document.createElement("small");
+
+      type.textContent = robot.type;
+
+      info.append(name,type);
+
+      const heart =
+        document.createElement("div");
+
+      heart.className = "rank-heart";
+
+      heart.textContent =
+
+        "♥ "+formatNumber(getHearts(id));
+
+      row.append(rank,info,heart);
+
+      $("ranking").append(row);
+
+      csvRows.push([
+
+        index+1,
+
+        robot.name,
+
+        robot.type,
+
+        getHearts(id)
+
+      ]);
+
+    });
+
+    // ==========================
+    // 21. สรุปผลกิจกรรม
+    // ==========================
+
+    const topTotal = Math.max(
+
+      0,
+
+      ...interestResults.map(x => x.total)
+
+    );
+
+    const topInterests = interestResults
+
+      .filter(x => x.total === topTotal)
+
+      .map(x => x.label)
+
+      .join(", ");
+
+    if(robotCount === 0) {
+
+      $("summary").textContent =
+
+        "ยังไม่มีข้อมูลหุ่นยนต์ในวันที่เลือก";
+
+    } else {
+
+      $("summary").textContent =
+
+        "มีหุ่นยนต์ทั้งหมด "+
+
+        formatNumber(robotCount)+
+
+        " ตัว มีผู้เลือกสนใจสมัครเรียน IT "+
+
+        formatNumber(applyCount)+
+
+        " บัญชี"+
+
+        (topTotal > 0
+
+          ? " ความสนใจสูงสุดคือ "+
+
+            topInterests+
+
+            " จำนวน "+
+
+            formatNumber(topTotal)+
+
+            " บัญชี"
+
+          : "");
+
+    }
+
+    reportDate = selectedDate;
 
     $("csv").disabled = false;
 
     $("status").textContent =
-      "โหลดข้อมูลสำเร็จ";
 
-  } catch (e) {
+      "✓ โหลดข้อมูลสำเร็จ";
 
-    $("status").textContent = e.message;
+    $("updated").textContent =
+
+      "ข้อมูลวันที่ "+selectedDate+
+
+      " | อัปเดตล่าสุด: "+
+
+      new Date().toLocaleString("th-TH",{
+
+        timeZone: "Asia/Bangkok"
+
+      });
+
+  } catch(error) {
+
+    $("status").classList.add("error");
+
+    $("status").textContent =
+
+      "เกิดข้อผิดพลาด: "+error.message;
+
+    $("interestStats").textContent =
+
+      "ไม่สามารถโหลดข้อมูลได้";
+
+    $("ranking").textContent =
+
+      "ไม่สามารถโหลดข้อมูลได้";
+
+    csvRows = [];
+
+    reportDate = "";
+
+    $("csv").disabled = true;
+
+  } finally {
+
+    loading = false;
+
+    $("load").disabled = false;
+
+    $("date").disabled = false;
 
   }
+
 }
 
-$("load").onclick = load;
+// ============================
+// 22. จัดรูปแบบข้อมูล CSV
+// ============================
 
-// ส่งออกไฟล์ CSV
+function escapeCSV(value) {
+
+  let text = String(value ?? "");
+
+  // ป้องกันข้อความถูกตีความเป็นสูตร Excel
+
+  if(
+
+    typeof value === "string" &&
+
+    /^[\s]*[=+\-@\t\r\n]/.test(text)
+
+  ) {
+
+    text = "'"+text;
+
+  }
+
+  return '"' +
+
+    text.replace(/"/g,'""') +
+
+    '"';
+
+}
+
+// ============================
+// 23. ดาวน์โหลด CSV
+// ============================
 
 $("csv").onclick = () => {
 
-  const a = document.createElement("a");
+  if(!csvRows.length || !reportDate) return;
 
-  a.href = URL.createObjectURL(
+  const content =
 
-    new Blob(
+    "\uFEFF"+
 
-      [
-        "\ufeff" +
-        rows.map(r => r.join(",")).join("\r\n")
-      ],
+    csvRows.map(
 
-      { type: "text/csv;charset=utf-8" }
+      row => row.map(escapeCSV).join(",")
 
-    )
+    ).join("\r\n");
+
+  const blob = new Blob(
+
+    [content],
+
+    {
+
+      type: "text/csv;charset=utf-8;"
+
+    }
+
   );
 
-  a.download =
-    "robot-stats-" + $("date").value + ".csv";
+  const url = URL.createObjectURL(blob);
 
-  a.click();
+  const link = document.createElement("a");
+
+  link.href = url;
+
+  link.download =
+
+    "IT-SMART-CAMPUS-"+
+
+    reportDate+
+
+    ".csv";
+
+  document.body.append(link);
+
+  link.click();
+
+  link.remove();
 
   setTimeout(
-    () => URL.revokeObjectURL(a.href),
+
+    () => URL.revokeObjectURL(url),
+
     1000
+
   );
 
 };
 
-load();
+// ============================
+// 24. ปุ่ม Refresh
+// ============================
+
+$("load").onclick = loadDashboard;
+
+$("date").onchange = loadDashboard;
+
+// ============================
+// 25. โหลดข้อมูลครั้งแรก
+// ============================
+
+loadDashboard();
 
 </script>
 
 </body>
+
 </html>
