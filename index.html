@@ -4,14 +4,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>IT ROBOT WORLD @ RYTC</title>
 
 <style>
 
-/* =====================================
-   1. ออกแบบหน้าตาเว็บไซต์
-===================================== */
+/* ==============================
+   1. รูปแบบเว็บไซต์
+============================== */
 
 * {
   box-sizing: border-box;
@@ -21,7 +20,7 @@ body {
   margin: 0;
   background: #edf7f3;
   color: #183b40;
-  font: 16px Arial, sans-serif;
+  font: 16px Arial,sans-serif;
 }
 
 header {
@@ -65,7 +64,7 @@ h3 {
   font-size: 16px;
 }
 
-input, select, button {
+input,select,button {
   font: inherit;
   padding: 12px;
   border-radius: 12px;
@@ -152,7 +151,9 @@ a {
   color: #087e70;
 }
 
-/* จัดหน้าเว็บไซต์ */
+/* ==============================
+   2. จัดวางหน้าเว็บไซต์
+============================== */
 
 .layout {
   display: grid;
@@ -160,8 +161,6 @@ a {
     minmax(0,2.2fr) minmax(260px,1fr);
   gap: 16px;
 }
-
-/* การ์ดสถิติ */
 
 .statsgrid {
   display: grid;
@@ -192,8 +191,6 @@ a {
   color: #c6f4e5;
 }
 
-/* ตัวอย่างหุ่นยนต์ */
-
 .preview {
   display: flex;
   align-items: center;
@@ -205,8 +202,9 @@ a {
 }
 
 .preview canvas {
-  width: 100px;
-  height: 110px;
+  width: 120px;
+  height: 130px;
+  flex-shrink: 0;
 }
 
 #create {
@@ -253,7 +251,104 @@ a {
   }
 }
 
-/* รองรับโทรศัพท์มือถือ */
+/* ==============================
+   3. กล่องสี V6.0
+============================== */
+
+.color-picker {
+  margin: 18px 0;
+}
+
+.color-palette {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit,32px);
+  gap: 9px;
+  max-width: 650px;
+}
+
+.color-box {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid #a8c5bf;
+  border-radius: 9px;
+  position: relative;
+  cursor: pointer;
+}
+
+.color-box.active {
+  outline: 3px solid #087e70;
+  outline-offset: 2px;
+}
+
+.color-box.active::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 17px;
+  text-shadow: 0 1px 4px #000,0 0 3px #000;
+}
+
+.color-box:focus-visible {
+  outline: 3px dashed #183b40;
+  outline-offset: 3px;
+}
+
+#selectedColor {
+  display: block;
+  margin-top: 12px;
+}
+
+/* ==============================
+   4. แจ้งเตือนคำไม่สุภาพ
+============================== */
+
+#name[aria-invalid="true"] {
+  border: 2px solid #b91c1c;
+  background: #fff5f5;
+}
+
+#nameFeedback {
+  color: #b91c1c;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+#nameFeedback.ok {
+  color: #15803d;
+}
+
+/* ==============================
+   5. ส่วนสมัครเรียนออนไลน์
+============================== */
+
+.admission {
+  background: #eaf6f1;
+  border-color: #b8dcd0;
+  text-align: center;
+}
+
+.admission-link {
+  display: inline-block;
+  background: #087e70;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.admission-link:hover {
+  background: #075b55;
+}
+
+/* ==============================
+   6. รองรับโทรศัพท์มือถือ
+============================== */
 
 @media(max-width:800px) {
 
@@ -276,9 +371,9 @@ a {
 
 <body>
 
-<!-- =====================================
-     2. ส่วนหัวเว็บไซต์
-====================================== -->
+<!-- ===========================
+     7. ส่วนหัวเว็บไซต์
+============================ -->
 
 <header>
 
@@ -289,7 +384,7 @@ a {
   <h1>IT SMART CAMPUS</h1>
 
   <div>
-    เมืองเทคโนโลยีแห่งอนาคต • V5.0
+    เมืองเทคโนโลยีแห่งอนาคต • V6.0
   </div>
 
   <small>
@@ -308,9 +403,9 @@ a {
 
 <div>
 
-<!-- =====================================
-     3. แผนที่ Smart Campus
-====================================== -->
+<!-- ===========================
+     8. แผนที่เมือง
+============================ -->
 
 <section id="campus">
 
@@ -344,9 +439,9 @@ a {
   เลือกหุ่นยนต์ในเมือง
 </section>
 
-<!-- =====================================
-     4. สร้างหุ่นยนต์
-====================================== -->
+<!-- ===========================
+     9. สร้างหุ่นยนต์
+============================ -->
 
 <section>
 
@@ -356,8 +451,8 @@ a {
 
     <canvas
       id="preview"
-      width="100"
-      height="110">
+      width="120"
+      height="130">
     </canvas>
 
     <div>
@@ -378,6 +473,7 @@ a {
 
     <input
       id="name"
+      aria-describedby="nameFeedback"
       maxlength="20"
       placeholder="ชื่อเล่น (ไม่ใช้ชื่อจริง)">
 
@@ -392,12 +488,43 @@ a {
 
     </select>
 
+  </div>
+
+  <!-- ข้อความแจ้งเตือนชื่อ -->
+
+  <p
+    id="nameFeedback"
+    role="status"
+    aria-live="polite">
+  </p>
+
+  <!-- กล่องเลือกสี -->
+
+  <div class="color-picker">
+
+    <h3>🎨 เลือกสีหุ่นยนต์</h3>
+
     <input
       id="color"
-      type="color"
+      type="hidden"
       value="#22d3ee">
 
+    <div
+      id="colorPalette"
+      class="color-palette"
+      role="group"
+      aria-label="เลือกสีหุ่นยนต์">
+    </div>
+
+    <small
+      id="selectedColor"
+      aria-live="polite">
+      สีที่เลือก: ฟ้าเทอร์ควอยซ์
+    </small>
+
   </div>
+
+  <!-- ความสนใจด้าน IT -->
 
   <h3>ความสนใจ</h3>
 
@@ -418,9 +545,9 @@ a {
 
 </div>
 
-<!-- =====================================
-     5. อันดับและสถิติความสนใจ
-====================================== -->
+<!-- ===========================
+     10. สถิติและอันดับ
+============================ -->
 
 <aside>
 
@@ -444,6 +571,39 @@ a {
 
 </div>
 
+<!-- ===========================
+     11. สมัครเรียนออนไลน์
+============================ -->
+
+<section class="admission">
+
+  <h2>🎓 เปิดประตูสู่โลก IT</h2>
+
+  <p>
+    แผนกวิชาเทคโนโลยีสารสนเทศ
+    วิทยาลัยเทคนิคระยอง
+  </p>
+
+  <p>
+    ปวช. • ปวส. • ปริญญาตรี
+  </p>
+
+  <a
+    class="admission-link"
+    href="https://join.rytc.ac.th/"
+    target="_blank"
+    rel="noopener noreferrer">
+
+    สมัครเรียนออนไลน์ ↗
+
+  </a>
+
+  <p>
+    <small>join.rytc.ac.th</small>
+  </p>
+
+</section>
+
 </main>
 
 <footer>
@@ -455,9 +615,9 @@ a {
 
 <script type="module">
 
-// ======================================
-// 6. เชื่อมต่อ Firebase
-// ======================================
+// ==============================
+// 12. เชื่อมต่อ Firebase
+// ==============================
 
 import { initializeApp }
 from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -503,24 +663,47 @@ const db = getDatabase(app);
 
 const $ = id => document.getElementById(id);
 
-// ======================================
-// 7. รายการความสนใจ
-// ======================================
+// ==============================
+// 13. ความสนใจด้าน IT 16 รายการ
+// ==============================
 
 const labels = {
 
   ai: "AI ปัญญาประดิษฐ์",
+
   code: "เขียนโปรแกรม",
+
   game: "เกมและ E-Sport",
+
   iot: "หุ่นยนต์และ IoT",
+
   design: "กราฟิก",
+
   network: "เครือข่าย",
+
   web: "สร้างเว็บไซต์",
-  apply: "สนใจสมัครเรียน IT"
+
+  apply: "สนใจสมัครเรียน IT",
+
+  security: "Cyber Security",
+
+  mobile: "พัฒนาแอปพลิเคชัน",
+
+  database: "ฐานข้อมูล",
+
+  cloud: "Cloud Computing",
+
+  data: "Data Science",
+
+  hardware: "ประกอบและซ่อมคอมพิวเตอร์",
+
+  xr: "3D และ AR/VR",
+
+  ux: "UX/UI Design"
 
 };
 
-for (const [k,v] of Object.entries(labels)) {
+for(const [k,v] of Object.entries(labels)) {
 
   const l = document.createElement("label");
 
@@ -536,20 +719,30 @@ for (const [k,v] of Object.entries(labels)) {
 
 }
 
-// ======================================
-// 8. ตัวแปรระบบ
-// ======================================
+// ==============================
+// 14. ตัวแปรระบบ
+// ==============================
 
 let uid;
+
 let day;
+
 let offset = 0;
+
 let robots = {};
+
 let likes = {};
+
 let visits = {};
+
 let selected = null;
+
 let ready = false;
+
 let unsubs = [];
+
 let positions = new Map();
+
 let busy = false;
 
 // เวลาไทย UTC+7
@@ -557,20 +750,164 @@ let busy = false;
 const today = () => String(
 
   Math.floor(
+
     (Date.now()+offset+25200000)/86400000
+
   )
 
 );
 
 const path = (kind,...parts) =>
+
   ref(db,[kind,day,...parts].join("/"));
 
 const count = id =>
+
   Object.keys(likes[id] || {}).length;
 
-// ======================================
-// 9. แสดงสถิติผู้เข้าร่วม
-// ======================================
+// ==============================
+// 15. ระบบกรองคำไม่สุภาพ
+// ==============================
+
+const blockedWords = [
+
+  "เหี้ย",
+  "สัส",
+  "ควย",
+  "เย็ด",
+  "เยสแม่",
+  "แม่ง",
+  "ไอ้เหี้ย",
+  "อีดอก",
+  "ดอกทอง",
+  "หน้าหี",
+
+  "fuck",
+  "shit",
+  "bitch",
+  "cunt",
+  "motherfucker",
+  "asshole"
+
+];
+
+const exactWords = [
+
+  "กู",
+  "มึง",
+  "หี",
+  "ห่า",
+  "สัด",
+  "dick",
+  "pussy"
+
+];
+
+// ปรับข้อความก่อนตรวจสอบ
+
+function normalizeName(value) {
+
+  return value
+
+    .normalize("NFKC")
+
+    .toLowerCase()
+
+    .replace(/[่้๊๋์]/gu,"")
+
+    .replace(/[^\p{L}\p{M}\p{N}]/gu,"");
+
+}
+
+// ตรวจสอบคำต้องห้าม
+
+function isBlockedName(value) {
+
+  const text = normalizeName(value);
+
+  return !text ||
+
+    blockedWords.some(w =>
+
+      text.includes(normalizeName(w))
+
+    ) ||
+
+    exactWords.some(w =>
+
+      text === normalizeName(w)
+
+    );
+
+}
+
+// ตรวจสอบทันทีขณะพิมพ์
+
+function validateName() {
+
+  const input = $("name");
+
+  const value = input.value.trim();
+
+  const invalid =
+
+    !!value && isBlockedName(value);
+
+  input.setAttribute(
+
+    "aria-invalid",
+
+    String(invalid)
+
+  );
+
+  $("nameFeedback").textContent =
+
+    invalid
+
+      ? "กรุณาใช้ชื่อที่สุภาพและเหมาะสม"
+
+      : value
+
+        ? "✓ ไม่พบคำต้องห้ามในชื่อนี้"
+
+        : "";
+
+  $("nameFeedback").classList.toggle(
+
+    "ok",
+
+    !!value && !invalid
+
+  );
+
+  $("create").disabled =
+
+    !ready ||
+
+    busy ||
+
+    !!robots[uid] ||
+
+    !value ||
+
+    invalid;
+
+  return !!value && !invalid;
+
+}
+
+$("name").addEventListener(
+
+  "input",
+
+  validateName
+
+);
+
+// ==============================
+// 16. แสดงสถิติ
+// ==============================
 
 function render() {
 
@@ -596,44 +933,47 @@ function render() {
   ].map(([n,l])=>`
 
     <div class="metric">
+
       <b>${n}</b>
+
       <span>${l}</span>
+
     </div>
 
   `).join("");
 
-  $("create").disabled =
-    !ready || busy || !!robots[uid];
-
-  // อันดับหุ่นยนต์ยอดนิยม
+  validateName();
 
   $("ranking").replaceChildren();
 
   ids.sort((a,b)=>count(b)-count(a))
+
     .slice(0,10)
+
     .forEach((id,i)=>{
 
       const p = document.createElement("p");
 
       p.textContent =
+
         `${i+1}. ${robots[id].name} — ♥ ${count(id)}`;
 
       $("ranking").append(p);
 
     });
 
-  // สถิติความสนใจ
-
   $("interestStats").replaceChildren();
 
-  for (const [k,v] of Object.entries(labels)) {
+  for(const [k,v] of Object.entries(labels)) {
 
     const p = document.createElement("p");
 
     p.textContent =
 
       `${v}: ${ids.filter(
+
         id=>robots[id].interests?.[k]
+
       ).length} บัญชี`;
 
     $("interestStats").append(p);
@@ -644,9 +984,9 @@ function render() {
 
 }
 
-// ======================================
-// 10. ระบบกดหัวใจ
-// ======================================
+// ==============================
+// 17. ระบบกดหัวใจ
+// ==============================
 
 function profile() {
 
@@ -656,7 +996,7 @@ function profile() {
 
   p.replaceChildren();
 
-  if (!r) {
+  if(!r) {
 
     p.textContent = "เลือกหุ่นยนต์ในเมือง";
 
@@ -675,7 +1015,9 @@ function profile() {
   d.textContent =
 
     Object.keys(r.interests || {})
+
       .map(k=>labels[k])
+
       .join(", ");
 
   p.append(d);
@@ -685,15 +1027,21 @@ function profile() {
   b.textContent =
 
     `♥ ${count(selected)} ${
+
       likes[selected]?.[uid]
+
         ? "ให้หัวใจแล้ว"
+
         : "ให้หัวใจ"
+
     }`;
 
   b.disabled =
 
     !ready ||
+
     selected === uid ||
+
     !!likes[selected]?.[uid];
 
   b.onclick = async () => {
@@ -703,8 +1051,11 @@ function profile() {
     try {
 
       await set(
+
         path("likes",selected,uid),
+
         true
+
       );
 
     } catch(e) {
@@ -721,9 +1072,9 @@ function profile() {
 
 }
 
-// ======================================
-// 11. โหลดข้อมูลจาก Firebase
-// ======================================
+// ==============================
+// 18. โหลดข้อมูล Firebase
+// ==============================
 
 async function start() {
 
@@ -732,7 +1083,9 @@ async function start() {
   day = today();
 
   robots = {};
+
   likes = {};
+
   visits = {};
 
   positions.clear();
@@ -743,10 +1096,14 @@ async function start() {
 
   render();
 
-  for (const kind of [
+  for(const kind of [
+
     "robots",
+
     "likes",
+
     "visits"
+
   ]) {
 
     unsubs.push(
@@ -758,12 +1115,15 @@ async function start() {
         s=>{
 
           if(kind==="robots")
+
             robots = s.val() || {};
 
           if(kind==="likes")
+
             likes = s.val() || {};
 
           if(kind==="visits")
+
             visits = s.val() || {};
 
           render();
@@ -786,9 +1146,9 @@ async function start() {
 
 }
 
-// ======================================
-// 12. บันทึกหุ่นยนต์
-// ======================================
+// ==============================
+// 19. สร้างหุ่นยนต์
+// ==============================
 
 $("create").onclick = async () => {
 
@@ -802,9 +1162,20 @@ $("create").onclick = async () => {
 
   );
 
+  if(!validateName()) {
+
+    $("status").textContent =
+
+      "กรุณาตั้งชื่อที่สุภาพ";
+
+    return;
+
+  }
+
   if(!name || !Object.keys(interests).length) {
 
     $("status").textContent =
+
       "กรุณาตั้งชื่อและเลือกความสนใจ";
 
     return;
@@ -832,6 +1203,7 @@ $("create").onclick = async () => {
     });
 
     $("status").textContent =
+
       "สร้างหุ่นยนต์สำเร็จ";
 
     selected = uid;
@@ -850,9 +1222,9 @@ $("create").onclick = async () => {
 
 };
 
-// ======================================
-// 13. ระบบ Canvas
-// ======================================
+// ==============================
+// 20. ระบบ Canvas
+// ==============================
 
 const canvas = $("city");
 
@@ -870,19 +1242,18 @@ function rect(x,y,w,h,r,c) {
 
 }
 
-// ======================================
-// 14. CUTE 3D ROBOT
-// วาดหุ่นยนต์รูปแบบใหม่
-// ======================================
+// ==============================
+// 21. หุ่นยนต์ Cute 3D
+// ==============================
 
 function drawCuteRobot(
-  c,
-  x,
-  y,
-  scale,
-  r,
+
+  c,x,y,scale,r,
+
   phase=0,
+
   isSelected=false
+
 ) {
 
   c.save();
@@ -892,16 +1263,19 @@ function drawCuteRobot(
   c.scale(scale,scale);
 
   const color =
-    /^#[0-9a-f]{6}$/i.test(r.color || "")
-      ? r.color
-      : "#22d3ee";
 
-  // ไล่ระดับสีให้มีมิติ
+    /^#[0-9a-f]{6}$/i.test(r.color || "")
+
+      ? r.color
+
+      : "#22d3ee";
 
   const grad = (x1,y1,x2,y2,a,b) => {
 
     const g = c.createLinearGradient(
+
       x1,y1,x2,y2
+
     );
 
     g.addColorStop(0,a);
@@ -913,8 +1287,6 @@ function drawCuteRobot(
     return g;
 
   };
-
-  // ฟังก์ชันวาดรูปทรงมุมโค้ง
 
   const rr = (xx,yy,w,h,rad,fill) => {
 
@@ -928,13 +1300,11 @@ function drawCuteRobot(
 
   };
 
-  // จังหวะการเดิน
-
   const bob = Math.sin(phase)*2.2;
 
   const step = Math.sin(phase*1.8)*4;
 
-  // เงาใต้หุ่นยนต์
+  // เงา
 
   c.shadowColor = color;
 
@@ -944,15 +1314,13 @@ function drawCuteRobot(
 
   c.beginPath();
 
-  c.ellipse(
-    0,3,25,7,0,0,Math.PI*2
-  );
+  c.ellipse(0,3,25,7,0,0,Math.PI*2);
 
   c.fill();
 
   c.shadowBlur = 0;
 
-  // ขาหุ่นยนต์
+  // ขา
 
   c.strokeStyle = "#526b80";
 
@@ -976,21 +1344,13 @@ function drawCuteRobot(
 
   c.stroke();
 
-  // เท้าหุ่นยนต์
+  // เท้า
 
-  rr(
-    -17+(step<0?-2:0),
-    0,15,7,3,
-    "#263d53"
-  );
+  rr(-17+(step<0?-2:0),0,15,7,3,"#263d53");
 
-  rr(
-    3+(step>0?2:0),
-    0,15,7,3,
-    "#263d53"
-  );
+  rr(3+(step>0?2:0),0,15,7,3,"#263d53");
 
-  // แขนหุ่นยนต์
+  // แขน
 
   c.strokeStyle = "#71899c";
 
@@ -1012,31 +1372,23 @@ function drawCuteRobot(
 
   c.stroke();
 
-  // มือหุ่นยนต์
+  // มือ
 
   c.fillStyle = "#dcebf1";
 
   c.beginPath();
 
-  c.arc(
-    -23-step*.25,
-    -12+bob,
-    5,0,Math.PI*2
-  );
+  c.arc(-23-step*.25,-12+bob,5,0,Math.PI*2);
 
   c.fill();
 
   c.beginPath();
 
-  c.arc(
-    23+step*.25,
-    -12+bob,
-    5,0,Math.PI*2
-  );
+  c.arc(23+step*.25,-12+bob,5,0,Math.PI*2);
 
   c.fill();
 
-  // ลำตัวแบบ 3D
+  // ลำตัว
 
   c.shadowColor = "#0003";
 
@@ -1045,33 +1397,20 @@ function drawCuteRobot(
   c.shadowOffsetY = 3;
 
   rr(
-    -18,-39+bob,
-    36,34,10,
-    grad(
-      -18,-39,
-      18,-5,
-      "#ffffff",
-      color
-    )
+
+    -18,-39+bob,36,34,10,
+
+    grad(-18,-39,18,-5,"#ffffff",color)
+
   );
 
   c.shadowBlur = 0;
 
   c.shadowOffsetY = 0;
 
-  // หน้าจอบนลำตัว
+  rr(-11,-31+bob,22,17,5,"#18364a");
 
-  rr(
-    -11,-31+bob,
-    22,17,5,
-    "#18364a"
-  );
-
-  rr(
-    -7,-27+bob,
-    14,3,2,
-    "#bffaff"
-  );
+  rr(-7,-27+bob,14,3,2,"#bffaff");
 
   // เสาอากาศ
 
@@ -1091,28 +1430,17 @@ function drawCuteRobot(
 
   c.beginPath();
 
-  c.arc(
-    0,-75+bob,
-    4,0,Math.PI*2
-  );
+  c.arc(0,-75+bob,4,0,Math.PI*2);
 
   c.fill();
 
-  // หูหุ่นยนต์
+  // หู
 
-  rr(
-    -27,-60+bob,
-    7,15,3,
-    "#71899c"
-  );
+  rr(-27,-60+bob,7,15,3,"#71899c");
 
-  rr(
-    20,-60+bob,
-    7,15,3,
-    "#71899c"
-  );
+  rr(20,-60+bob,7,15,3,"#71899c");
 
-  // ศีรษะทรงกลมแบบ Cute 3D
+  // ศีรษะ
 
   c.shadowColor = color;
 
@@ -1120,30 +1448,19 @@ function drawCuteRobot(
 
   rr(
 
-    -25,-69+bob,
+    -25,-69+bob,50,35,13,
 
-    50,35,13,
-
-    grad(
-      -25,-69,
-      25,-34,
-      "#ffffff",
-      color
-    )
+    grad(-25,-69,25,-34,"#ffffff",color)
 
   );
 
   c.shadowBlur = 0;
 
-  // หน้าจอใบหน้า
+  // ใบหน้า
 
-  rr(
-    -19,-63+bob,
-    38,22,8,
-    "#10283d"
-  );
+  rr(-19,-63+bob,38,22,8,"#10283d");
 
-  // ดวงตาเรืองแสง
+  // ดวงตา
 
   for(const ex of [-9,9]) {
 
@@ -1155,11 +1472,7 @@ function drawCuteRobot(
 
     c.beginPath();
 
-    c.ellipse(
-      ex,
-      -52+bob,
-      4,5,0,0,Math.PI*2
-    );
+    c.ellipse(ex,-52+bob,4,5,0,0,Math.PI*2);
 
     c.fill();
 
@@ -1169,11 +1482,7 @@ function drawCuteRobot(
 
     c.beginPath();
 
-    c.arc(
-      ex-1,
-      -54+bob,
-      1.5,0,Math.PI*2
-    );
+    c.arc(ex-1,-54+bob,1.5,0,Math.PI*2);
 
     c.fill();
 
@@ -1187,10 +1496,7 @@ function drawCuteRobot(
 
   c.beginPath();
 
-  c.arc(
-    0,-46+bob,
-    4,.2,Math.PI-.2
-  );
+  c.arc(0,-46+bob,4,.2,Math.PI-.2);
 
   c.stroke();
 
@@ -1200,23 +1506,19 @@ function drawCuteRobot(
 
   c.font = "bold 7px Arial";
 
-  // ====================================
-  // 15. อุปกรณ์ประจำประเภทหุ่นยนต์
-  // ====================================
+  // ประเภท Coder
 
   if(r.type==="Coder") {
 
-    rr(
-      -12,-25+bob,
-      24,12,3,
-      "#152b43"
-    );
+    rr(-12,-25+bob,24,12,3,"#152b43");
 
     c.fillStyle = "#83f3ff";
 
     c.fillText("</>",0,-17+bob);
 
   }
+
+  // ประเภท AI
 
   else if(r.type==="AI") {
 
@@ -1226,10 +1528,7 @@ function drawCuteRobot(
 
     c.beginPath();
 
-    c.arc(
-      0,-75+bob,
-      8,Math.PI,Math.PI*2
-    );
+    c.arc(0,-75+bob,8,Math.PI,Math.PI*2);
 
     c.stroke();
 
@@ -1239,25 +1538,21 @@ function drawCuteRobot(
 
   }
 
+  // ประเภท Gamer
+
   else if(r.type==="Gamer") {
 
-    rr(
-      -25,-73+bob,
-      12,7,3,
-      "#293e58"
-    );
+    rr(-25,-73+bob,12,7,3,"#293e58");
 
-    rr(
-      13,-73+bob,
-      12,7,3,
-      "#293e58"
-    );
+    rr(13,-73+bob,12,7,3,"#293e58");
 
     c.fillStyle = "#fff";
 
     c.fillText("+",0,-17+bob);
 
   }
+
+  // ประเภท Designer
 
   else if(r.type==="Designer") {
 
@@ -1277,14 +1572,13 @@ function drawCuteRobot(
 
     c.beginPath();
 
-    c.arc(
-      28,-53+bob,
-      3,0,Math.PI*2
-    );
+    c.arc(28,-53+bob,3,0,Math.PI*2);
 
     c.fill();
 
   }
+
+  // ประเภท Network
 
   else if(r.type==="Network") {
 
@@ -1295,10 +1589,13 @@ function drawCuteRobot(
     c.beginPath();
 
     c.arc(
-      0,-75+bob,
-      10,
+
+      0,-75+bob,10,
+
       Math.PI*1.15,
+
       Math.PI*1.85
+
     );
 
     c.stroke();
@@ -1306,15 +1603,20 @@ function drawCuteRobot(
     c.beginPath();
 
     c.arc(
-      0,-75+bob,
-      6,
+
+      0,-75+bob,6,
+
       Math.PI*1.15,
+
       Math.PI*1.85
+
     );
 
     c.stroke();
 
   }
+
+  // ประเภท Explorer
 
   else {
 
@@ -1326,32 +1628,29 @@ function drawCuteRobot(
 
   }
 
-  // ป้ายชื่อหุ่นยนต์
+  // ป้ายชื่อ
 
   c.font = "bold 10px Arial";
 
   const label =
+
     String(r.name || "Robot").slice(0,18);
 
   const width = Math.max(
+
     38,
+
     c.measureText(label).width+12
+
   );
 
-  rr(
-    -width/2,
-    7,
-    width,
-    14,
-    5,
-    "#ffffff"
-  );
+  rr(-width/2,7,width,14,5,"#ffffff");
 
   c.fillStyle = "#183b40";
 
   c.fillText(label,0,17);
 
-  // จำนวนหัวใจเหนือศีรษะ
+  // จำนวนหัวใจ
 
   c.font = "bold 10px Arial";
 
@@ -1365,7 +1664,7 @@ function drawCuteRobot(
 
   );
 
-  // กรอบแสดงหุ่นยนต์ที่เลือก
+  // กรอบตัวที่เลือก
 
   if(isSelected) {
 
@@ -1377,11 +1676,7 @@ function drawCuteRobot(
 
     c.beginPath();
 
-    c.ellipse(
-      0,-31,
-      34,57,
-      0,0,Math.PI*2
-    );
+    c.ellipse(0,-31,34,57,0,0,Math.PI*2);
 
     c.stroke();
 
@@ -1393,53 +1688,35 @@ function drawCuteRobot(
 
 }
 
-// ======================================
-// 16. สร้างฉาก Smart Campus
-// ======================================
+// ==============================
+// 22. วาดเมือง Smart Campus
+// ==============================
 
 let last = 0;
 
 function draw(t) {
 
   const dt = Math.min(
+
     (t-last)/16.67,
+
     3
+
   );
 
   last = t;
-
-  // สนามหญ้า
 
   ctx.fillStyle = "#bfe6c9";
 
   ctx.fillRect(0,0,1000,460);
 
-  rect(
-    15,15,
-    970,430,
-    28,
-    "#d8f0d9"
-  );
+  rect(15,15,970,430,28,"#d8f0d9");
 
-  // ทางเดิน
+  rect(12,225,976,220,20,"#e9e6d8");
 
-  rect(
-    12,225,
-    976,220,
-    20,
-    "#e9e6d8"
-  );
+  rect(12,245,976,12,5,"#fff9ed");
 
-  rect(
-    12,245,
-    976,12,
-    5,
-    "#fff9ed"
-  );
-
-  // ====================================
-  // 17. อาคารเทคโนโลยี 6 โซน
-  // ====================================
+  // อาคารเทคโนโลยี 6 โซน
 
   const zones = [
 
@@ -1463,77 +1740,23 @@ function draw(t) {
 
     const x = 24+i*163;
 
-    // พื้นที่อาคาร
+    rect(x,48,140,170,12,"#a7d7af");
 
-    rect(
-      x,48,
-      140,170,
-      12,
-      "#a7d7af"
-    );
+    rect(x+9,92,122,105,8,"#829fa3");
 
-    // เงาอาคาร
+    rect(x+5,77,122,105,8,"#f9fffc");
 
-    rect(
-      x+9,92,
-      122,105,
-      8,
-      "#829fa3"
-    );
+    rect(x+5,77,122,28,8,c);
 
-    // ตัวอาคาร
-
-    rect(
-      x+5,77,
-      122,105,
-      8,
-      "#f9fffc"
-    );
-
-    // หลังคา
-
-    rect(
-      x+5,77,
-      122,28,
-      8,c
-    );
-
-    // หน้าต่าง
-
-    rect(
-      x+18,114,
-      96,40,
-      6,
-      "#b8dfe9"
-    );
+    rect(x+18,114,96,40,6,"#b8dfe9");
 
     for(let j=0;j<3;j++) {
 
-      rect(
-
-        x+23+j*30,
-
-        119,
-
-        23,29,
-
-        3,
-
-        "#65a7bb"
-
-      );
+      rect(x+23+j*30,119,23,29,3,"#65a7bb");
 
     }
 
-    // ประตู
-
-    rect(
-      x+53,158,
-      26,24,
-      4,c
-    );
-
-    // ชื่ออาคาร
+    rect(x+53,158,26,24,4,c);
 
     ctx.textAlign = "center";
 
@@ -1541,58 +1764,31 @@ function draw(t) {
 
     ctx.font = "bold 12px Arial";
 
-    ctx.fillText(
-      name,
-      x+66,
-      95
-    );
-
-    // สัญลักษณ์อาคาร
+    ctx.fillText(name,x+66,95);
 
     ctx.fillStyle = "#28545a";
 
     ctx.font = "bold 18px Arial";
 
-    ctx.fillText(
-      icon,
-      x+66,
-      68
-    );
+    ctx.fillText(icon,x+66,68);
 
-    // ทางเดินหน้าอาคาร
-
-    rect(
-      x+55,197,
-      22,28,
-      4,
-      "#f4f1e6"
-    );
+    rect(x+55,197,22,28,4,"#f4f1e6");
 
   }
 
-  // ====================================
-  // 18. ต้นไม้และพื้นที่สีเขียว
-  // ====================================
+  // ต้นไม้
 
   for(let i=0;i<12;i++) {
 
     let x = 40+i*83;
 
-    rect(
-      x,18,
-      5,18,
-      2,
-      "#9a8060"
-    );
+    rect(x,18,5,18,2,"#9a8060");
 
     ctx.fillStyle = "#54a97b";
 
     ctx.beginPath();
 
-    ctx.arc(
-      x+2,17,
-      12,0,Math.PI*2
-    );
+    ctx.arc(x+2,17,12,0,Math.PI*2);
 
     ctx.fill();
 
@@ -1605,24 +1801,22 @@ function draw(t) {
   ctx.textAlign = "center";
 
   ctx.fillText(
+
     "SMART CAMPUS WALKWAY",
+
     500,275
+
   );
 
   for(let x=35;x<980;x+=80) {
 
-    rect(
-      x,438,
-      42,4,
-      2,
-      "#fff"
-    );
+    rect(x,438,42,4,2,"#fff");
 
   }
 
-  // ====================================
-  // 19. ระบบเดินอัตโนมัติ
-  // ====================================
+  // ============================
+  // 23. หุ่นยนต์เดินอัตโนมัติ
+  // ============================
 
   for(const id of Object.keys(robots)) {
 
@@ -1648,14 +1842,9 @@ function draw(t) {
 
     p.y += p.vy*dt;
 
-    // เปลี่ยนทิศทางเมื่อถึงขอบ
-
     if(p.x<35 || p.x>965) {
 
-      p.x = Math.max(
-        35,
-        Math.min(965,p.x)
-      );
+      p.x = Math.max(35,Math.min(965,p.x));
 
       p.vx *= -1;
 
@@ -1663,16 +1852,11 @@ function draw(t) {
 
     if(p.y<300 || p.y>425) {
 
-      p.y = Math.max(
-        300,
-        Math.min(425,p.y)
-      );
+      p.y = Math.max(300,Math.min(425,p.y));
 
       p.vy *= -1;
 
     }
-
-    // สุ่มทิศทางการเดิน
 
     if(Math.random()<.004) {
 
@@ -1684,14 +1868,12 @@ function draw(t) {
 
   }
 
-  // ====================================
-  // 20. แสดงหุ่นยนต์ Cute 3D ทุกตัว
-  // ====================================
-
   for(const id of Object.keys(robots).sort(
 
     (a,b)=>
+
       positions.get(a).y-
+
       positions.get(b).y
 
   )) {
@@ -1728,18 +1910,20 @@ function draw(t) {
 
 requestAnimationFrame(draw);
 
-// ======================================
-// 21. คลิกเลือกหุ่นยนต์
-// ======================================
+// ==============================
+// 24. คลิกเลือกหุ่นยนต์
+// ==============================
 
 canvas.onclick = e => {
 
   const b = canvas.getBoundingClientRect();
 
   const x =
+
     (e.clientX-b.left)*1000/b.width;
 
   const y =
+
     (e.clientY-b.top)*460/b.height;
 
   let best = 55;
@@ -1770,30 +1954,143 @@ canvas.onclick = e => {
 
 };
 
-// ======================================
-// 22. แสดงตัวอย่างหุ่นยนต์ก่อนสร้าง
-// ======================================
+// ==============================
+// 25. กล่องสี 16 สี V6.0
+// ==============================
+
+const robotColors = [
+
+  ["#22d3ee","ฟ้าเทอร์ควอยซ์"],
+
+  ["#3b82f6","น้ำเงิน"],
+
+  ["#22c55e","เขียว"],
+
+  ["#84cc16","เขียวมะนาว"],
+
+  ["#facc15","เหลือง"],
+
+  ["#fb923c","ส้ม"],
+
+  ["#ef4444","แดง"],
+
+  ["#ec4899","ชมพู"],
+
+  ["#a855f7","ม่วง"],
+
+  ["#ffffff","ขาว"],
+
+  ["#94a3b8","เทาเงิน"],
+
+  ["#1e293b","ดำเข้ม"],
+
+  ["#6366f1","คราม"],
+
+  ["#14b8a6","เขียวมิ้นต์"],
+
+  ["#f9a8d4","ชมพูพาสเทล"],
+
+  ["#92400e","น้ำตาล"]
+
+];
+
+for(const [color,name] of robotColors) {
+
+  const btn = document.createElement("button");
+
+  btn.type = "button";
+
+  btn.className = "color-box";
+
+  btn.style.backgroundColor = color;
+
+  btn.title = name;
+
+  btn.setAttribute("aria-label",name);
+
+  const active =
+
+    color === $("color").value;
+
+  btn.classList.toggle("active",active);
+
+  btn.setAttribute(
+
+    "aria-pressed",
+
+    String(active)
+
+  );
+
+  btn.onclick = () => {
+
+    $("color").value = color;
+
+    $("colorPalette")
+
+      .querySelectorAll("button")
+
+      .forEach(b=>{
+
+        b.classList.toggle(
+
+          "active",
+
+          b===btn
+
+        );
+
+        b.setAttribute(
+
+          "aria-pressed",
+
+          String(b===btn)
+
+        );
+
+      });
+
+    $("selectedColor").textContent =
+
+      "สีที่เลือก: "+name;
+
+    preview();
+
+  };
+
+  $("colorPalette").append(btn);
+
+}
+
+// ==============================
+// 26. แสดงตัวอย่างหุ่นยนต์
+// ==============================
 
 function preview() {
 
   const c =
+
     $("preview").getContext("2d");
 
-  c.clearRect(0,0,100,110);
+  c.clearRect(0,0,120,130);
 
   drawCuteRobot(
 
     c,
 
-    50,
+    60,
 
-    94,
+    101,
 
-    1.05,
+    1.0,
 
     {
 
-      name: $("name").value || "YOUR BOT",
+      name: isBlockedName($("name").value)
+
+        ? "YOUR BOT"
+
+        : $("name").value,
 
       type: $("type").value,
 
@@ -1811,41 +2108,17 @@ function preview() {
 
 }
 
-// เปลี่ยนสีหุ่นยนต์
+$("color").addEventListener("input",preview);
 
-$("color").addEventListener(
+$("type").addEventListener("change",preview);
 
-  "input",
-
-  preview
-
-);
-
-// เปลี่ยนประเภทหุ่นยนต์
-
-$("type").addEventListener(
-
-  "change",
-
-  preview
-
-);
-
-// เปลี่ยนชื่อหุ่นยนต์
-
-$("name").addEventListener(
-
-  "input",
-
-  preview
-
-);
+$("name").addEventListener("input",preview);
 
 preview();
 
-// ======================================
-// 23. โหมดเต็มหน้าจอ
-// ======================================
+// ==============================
+// 27. โหมดเต็มหน้าจอ
+// ==============================
 
 $("full").onclick = () => {
 
@@ -1865,9 +2138,9 @@ $("full").onclick = () => {
 
 };
 
-// ======================================
-// 24. เข้าสู่ระบบ Firebase
-// ======================================
+// ==============================
+// 28. เข้าสู่ระบบ Firebase
+// ==============================
 
 try {
 
